@@ -1,0 +1,21 @@
+name: devor
+description: "Девор — бозори ройгони эълонҳо барои Тоҷикистон. 100% Ройгон."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.0.0   # Android Keystore / iOS Keychain — ҳеҷ гоҳ токен дар SharedPreferences
+  crypto: ^3.0.3                   # барои HMAC/SHA дар имзогунии дархостҳо (демо)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

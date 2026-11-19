@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="tg" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Девор — Бозори ройгони эълонҳои Тоҷикистон</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#A62626; --brand-h:#8E1F1F; --brand-tint:rgba(166,38,38,.08);
+  --bg:#FFFFFF; --surface:#F5F5F5; --hover:#FAFAFA; --hair:#E6E6E6;
+  --text:#212121; --text2:#707070; --muted:#9E9E9E; --success:#1B873F;
+}
+[data-theme="dark"]{
+  --bg:#121212; --surface:#1E1E1E; --hover:#232323; --hair:#2E2E2E;
+  --text:#F1F1F1; --text2:#A0A0A0; --muted:#A0A0A0; --brand:#D94141; --brand-h:#B53636; --brand-tint:rgba(217,65,65,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Noto Sans',sans-serif}
+body{background:var(--bg);color:var(--text);font-size:14px}
+button{cursor:pointer;border:none;background:none;color:inherit;font:inherit}
+input,select,textarea{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:10px 12px;outline:none;width:100%}
+input:focus,textarea:focus{border-color:var(--brand)}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--hair);border-radius:8px}
+
+/* ============ HEADER ============ */
+header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--hair)}
+.hdr-in{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:1400px;margin:auto;height:64px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:var(--brand);white-space:nowrap}
+.city-btn,.cat-btn{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:4px;background:var(--surface);color:var(--text);font-weight:600;font-size:13px;white-space:nowrap}
+.city-btn:hover,.cat-btn:hover{background:var(--hover)}
+.search-wrap{flex:1;position:relative;min-width:120px}
+.search-wrap input{background:var(--surface);border:1px solid var(--hair);border-radius:4px;padding:9px 34px 9px 12px}
+.s-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+.hdr-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.hbtn{position:relative;padding:8px 10px;border-radius:4px;color:var(--text2);font-weight:600;font-size:13px}
+.hbtn:hover{background:var(--hover);color:var(--text)}
+.badge{position:absolute;top:0;right:0;background:var(--brand);color:#fff;font-size:10px;font-weight:700;border-radius:50%;min-width:16px;height:16px;display:flex;align-items:center;justify-content:center;padding:0 3px}
+.post-btn{background:var(--brand);color:#fff;font-weight:700;padding:10px 16px;border-radius:4px;font-size:13px}
+.post-btn:hover{background:var(--brand-h)}
+
+/* ============ LAYOUT ============ */
+.layout{display:flex;max-width:1400px;margin:auto;gap:20px;padding:16px}
+aside{width:280px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start;max-height:calc(100vh - 96px);overflow-y:auto}
+main{flex:1;min-width:0}
+@media(max-width:900px){
+  aside{position:fixed;left:-300px;top:0;bottom:0;z-index:200;background:var(--bg);max-height:none;transition:left .25s;padding:16px;box-shadow:2px 0 12px rgba(0,0,0,.15)}
+  aside.open{left:0}
+  .cat-btn{display:none}
+  .hbtn span{display:none}
+  .layout{padding:10px}
+}
+.aside-h{display:none;font-size:16px;font-weight:700;margin-bottom:8px}
+@media(max-width:900px){.aside-h{display:block}}
+.foot{color:var(--muted);font-size:11.5px;text-align:center;padding:14px 0;border-top:1px solid var(--hair);margin-top:12px}
+
+/* ============ SIDEBAR ============ */
+.side-title{font-weight:700;font-size:14px;margin:6px 0 8px;display:flex;align-items:center;justify-content:space-between}
+.back-btn{color:var(--brand);font-size:12px;font-weight:600}
+.cat-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:4px;font-size:13.5px;color:var(--text)}
+.cat-item:hover{background:var(--hover)}
+.cat-item.active{color:var(--brand);background:var(--brand-tint);font-weight:600}
+.cat-item .cnt{margin-left:auto;color:var(--muted);font-size:11.5px}
+.cat-item .ic{width:16px;text-align:center;color:var(--text2)}
+.acc-h{display:flex;align-items:center;justify-content:space-between;padding:11px 4px;border-bottom:1px solid var(--hair);font-weight:600;font-size:13.5px;user-select:none}
+.acc-h .chev{transition:transform .2s;color:var(--muted)}
+.acc.open .chev{transform:rotate(180deg)}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc.open .acc-b{max-height:600px;padding:8px 4px}
+.chk{display:flex;align-items:center;gap:8px;padding:6px 4px;font-size:13px;color:var(--text2)}
+.chk input{width:auto}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.fchip{border:1px solid var(--hair);border-radius:16px;padding:5px 11px;font-size:12px;background:var(--bg);color:var(--text)}
+.fchip.sel{background:var(--brand-tint);border-color:var(--brand);color:var(--brand);font-weight:600}
+.sw-row{display:flex;align-items:center;justify-content:space-between;padding:7px 4px;font-size:13px;color:var(--text2)}
+.switch{position:relative;width:36px;height:20px;background:var(--hair);border-radius:10px;transition:.2s;flex-shrink:0}
+.switch.on{background:var(--brand)}
+.switch::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}
+.switch.on::after{left:18px}
+.reset-btn{width:100%;margin-top:12px;padding:11px;border:1px solid var(--hair);border-radius:4px;font-weight:600;color:var(--brand);background:var(--bg)}
+.reset-btn:hover{background:var(--brand-tint)}
+
+/* ============ FEED ============ */
+.feed-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.crumb{color:var(--muted);font-size:12px}
+.fchip-x{border:1px solid var(--brand);color:var(--brand);border-radius:16px;padding:4px 10px;font-size:12px;background:var(--brand-tint);display:flex;gap:6px;align-items:center}
+select.sort{width:auto;padding:7px 10px;font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:10px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.ad-card{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--hair);border-radius:4px;padding:14px;background:var(--bg)}
+.ad-card:hover{background:var(--hover)}
+.ad-l{flex:1;display:flex;flex-direction:column;min-width:0}
+.ad-t{font-size:15px;font-weight:500;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad-s{font-size:12.5px;color:var(--text2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ad-p{font-size:15px;font-weight:600;margin-top:auto;padding-top:6px}
+.ad-p.free{color:var(--success)}
+.ad-m{font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tag{background:var(--brand-tint);color:var(--brand);font-size:10.5px;padding:1px 6px;border-radius:3px;font-weight:600}
+.tag.org{background:rgba(255,152,0,.14);color:#E65100}
+.ad-r{width:136px;height:136px;flex-shrink:0;position:relative;border-radius:4px;overflow:hidden}
+.thumb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative}
+.ph-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.5);color:#fff;font-size:10.5px;padding:2px 7px;border-radius:10px}
+.heart{position:absolute;top:6px;right:6px;width:26px;height:26px;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#707070}
+.heart.on{color:var(--brand)}
+.map-btn{position:fixed;bottom:24px;right:24px;z-index:90;background:var(--brand);color:#fff;padding:12px 18px;border-radius:24px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;gap:8px;align-items:center}
+.empty{text-align:center;color:var(--muted);padding:60px 20px}
+
+/* ============ MODALS ============ */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 16px}
+.ov.open{display:flex}
+.modal{background:var(--bg);border-radius:8px;max-width:640px;width:100%;padding:24px;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.modal.wide{max-width:860px}
+.m-close{position:absolute;top:14px;right:14px;font-size:20px;color:var(--muted);width:32px;height:32px;border-radius:50%}
+.m-close:hover{background:var(--hover)}
+.m-title{font-size:19px;font-weight:700;margin-bottom:14px}
+.spec-t{width:100%;border-collapse:collapse;border:1px solid var(--hair)}
+.spec-t td{padding:9px 12px;border-bottom:1px solid var(--hair);font-size:13.5px}
+.spec-t tr:last-child td{border-bottom:none}
+.spec-t td:first-child{color:var(--text2);width:45%}
+.spec-t td:last-child{text-align:right;font-weight:500}
+.safety{background:var(--brand-tint);border:1px solid var(--brand);border-radius:8px;padding:14px;margin-top:16px;font-size:13px;line-height:1.7}
+.safety b{color:var(--brand)}
+.det-bar{display:flex;gap:8px;margin-top:20px}
+.det-bar button{flex:1;padding:13px;border-radius:4px;font-weight:700;font-size:14px}
+.btn-admin-del{width:100%;margin-top:10px;background:var(--brand);color:#fff;padding:13px;border-radius:4px;font-weight:700;font-size:14px;letter-spacing:.2px}
+.btn-admin-del:hover{opacity:.9}
+.btn-out{border:1px solid var(--brand);color:var(--brand);background:var(--bg)}
+.btn-fill{background:var(--brand);color:#fff}
+.btn-fill:hover{background:var(--brand-h)}
+.gal{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.gal .g{width:64px;height:64px;border-radius:4px;overflow:hidden;border:2px solid transparent}
+.gal .g.sel{border-color:var(--brand)}
+.wiz-nav{display:flex;gap:8px;margin-top:18px}
+.wiz-nav button{flex:1;padding:12px;border-radius:4px;font-weight:700}
+.two{display:flex;gap:8px}
+.two>*{flex:1}
+.tog3{display:flex;gap:6px;margin:8px 0}
+.tog3 button{flex:1;padding:9px;border:1px solid var(--hair);border-radius:4px;font-size:12.5px;background:var(--bg);color:var(--text2)}
+.tog3 button.on{border-color:var(--brand);color:var(--brand);background:var(--brand-tint);font-weight:700}
+.priv-note{background:var(--brand-tint);border-radius:8px;padding:12px;font-size:12px;color:var(--text2);line-height:1.7;margin-top:10px}
+.free-note{background:rgba(27,135,63,.08);color:var(--success);border-radius:8px;padding:12px;font-size:13px;font-weight:600;margin-top:10px}
+
+/* ============ CITY MODAL / DRAWERS ============ */
+.city-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+.city-it{padding:10px 12px;border:1px solid var(--hair);border-radius:4px;font-size:13.5px}
+.city-it.sel{border-color:var(--brand);color:var(--brand);background:var(--brand-tint);font-weight:700}
+.city-it:hover{background:var(--hover)}
+
+/* ============ CHAT ============ */
+.chat-split{display:flex;height:520px;border:1px solid var(--hair);border-radius:8px;overflow:hidden}
+.chat-list{width:220px;border-right:1px solid var(--hair);overflow-y:auto;flex-shrink:0}
+.chat-msgs{flex:1;display:flex;flex-direction:column}
+.chat-h{padding:12px;border-bottom:1px solid var(--hair);font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:10px}
+.chat-b{flex:1;overflow-y:auto;padding:12px}
+.msg{max-width:75%;padding:9px 13px;border-radius:16px;margin:4px 0;font-size:13.5px;line-height:1.4}
+.msg.me{background:var(--brand);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.msg.them{background:var(--surface);border-bottom-left-radius:4px}
+.qchips{display:flex;gap:6px;padding:8px 12px;border-top:1px solid var(--hair);flex-wrap:wrap}
+.qchips button{border:1px solid var(--brand);color:var(--brand);background:var(--brand-tint);border-radius:16px;padding:5px 11px;font-size:12px}
+.chat-in{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--hair)}
+.chat-it{display:flex;gap:10px;padding:10px;border-bottom:1px solid var(--hair);align-items:center}
+.chat-it.sel{background:var(--hover)}
+.chat-it .un{background:var(--brand);color:#fff;font-size:11px;border-radius:10px;padding:1px 7px;margin-left:auto}
+
+/* ============ MAP VIEW ============ */
+.map-box{position:relative;height:560px;border:1px solid var(--hair);border-radius:8px;overflow:hidden}
+.map-svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;background:#fff;color:var(--brand);font-weight:700;font-size:12px;padding:5px 11px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.25);border:1px solid var(--hair)}
+
+/* ============ SUPER-ADMIN GATE / SCHEMA BUILDER ============ */
+.logo{position:relative}
+.tapdots{font-size:9px;color:var(--brand);letter-spacing:2px;margin-left:4px}
+.logo-emblem{width:30px;height:30px;border-radius:7px;overflow:hidden;flex-shrink:0}
+.logo-emblem svg{width:100%;height:100%;display:block}
+.ota{position:fixed;top:0;left:0;right:0;z-index:400;background:var(--success);color:#fff;padding:10px 16px;display:flex;gap:10px;align-items:center;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.ota button{background:rgba(255,255,255,.2);color:#fff;padding:6px 14px;border-radius:4px;font-weight:700}
+.bannerRow{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px}
+.bannerCard{min-width:240px;padding:12px 14px;border-radius:8px;color:#fff;display:flex;gap:10px;align-items:center;font-weight:700;font-size:13.5px}
+.bannerCard small{display:block;font-weight:500;font-size:11.5px;opacity:.85}
+.adm-row{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid var(--hair);font-size:13px}
+.adm-row .grow{flex:1;min-width:0}
+.adm-row .ib{padding:4px 8px;border-radius:4px;font-size:12px;background:var(--surface);white-space:nowrap}
+.adm-row .ib:hover{background:var(--hover)}
+.adm-row .ib.dan{color:var(--brand)}
+.adm-note{font-size:11.5px;color:var(--muted);margin:8px 0;line-height:1.6}
+.panel-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.panel-tabs button{border:1px solid var(--hair);border-radius:16px;padding:6px 12px;font-size:12.5px;background:var(--bg);color:var(--text2)}
+.panel-tabs button.on{border-color:var(--brand);color:var(--brand);background:var(--brand-tint);font-weight:700}
+.sw{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.swb{width:30px;height:30px;border-radius:50%;border:2px solid transparent;flex-shrink:0}
+.swb.on{border-color:var(--text)}
+.emb{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-h));display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid transparent}
+.emb.on{border-color:var(--text)}
+.lock-note{background:var(--brand-tint);color:var(--brand);border:1px solid var(--brand);border-radius:8px;padding:10px 12px;font-size:12.5px;font-weight:700;margin-bottom:10px}
+
+/* ============ CINEMATIC SPLASH (Explosive Entrance) ============ */
+.splash{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1100px 700px at 50% 28%,#5a1616 0%,#A62626 45%,#170404 100%);
+  transition:transform .75s cubic-bezier(.22,1,.36,1),opacity .75s ease,filter .75s ease;will-change:transform,opacity,filter}
+.splash.explode{transform:scale(2.7);opacity:0;filter:blur(16px);pointer-events:none}
+.splash-core{text-align:center;position:relative;z-index:2}
+.splash-icon{width:96px;height:96px;margin:0 auto;border-radius:22px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.5),0 0 40px rgba(255,255,255,.12);
+  animation:floatPulse 2.6s ease-in-out infinite}
+.splash-icon svg{width:100%;height:100%;display:block}
+@keyframes floatPulse{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.05)}}
+.splash-title{font-size:44px;font-weight:800;color:#fff;letter-spacing:8px;margin-top:18px;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.splash-sub{color:rgba(255,255,255,.85);font-size:14px;margin-top:8px;letter-spacing:.4px}
+.splash-btn{margin-top:28px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);color:#fff;
+  padding:13px 30px;border-radius:26px;font-weight:700;font-size:15px;backdrop-filter:blur(6px);
+  animation:glowPulse 2s ease-in-out infinite;transition:transform .15s ease}
+.splash-btn:hover{transform:scale(1.04)}
+.splash-btn:active{transform:scale(.96)}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 18px rgba(255,255,255,.22),inset 0 0 10px rgba(255,255,255,.08)}
+  50%{box-shadow:0 0 38px rgba(255,255,255,.5),inset 0 0 14px rgba(255,255,255,.14)}}
+/* ---- Варақҳои эълони коғазӣ дар гирди маркази splash (ороїш) ---- */
+.paper{position:absolute;width:112px;height:132px;padding:12px 10px;border-radius:6px;z-index:1;pointer-events:none;
+  box-shadow:0 12px 26px rgba(0,0,0,.38),0 2px 6px rgba(0,0,0,.22);
+  animation:paperFloat var(--dur,6s) ease-in-out infinite alternate;will-change:transform;overflow:hidden}
+.paper::before{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 18px 18px 0;
+  border-color:transparent rgba(0,0,0,.16) transparent transparent}
+.paper .pw{font-weight:800;font-size:13px;color:#1F2937;line-height:1.2}
+.paper .pl{height:5px;border-radius:3px;background:rgba(31,41,55,.22);margin-top:6px}
+.paper .pl.s{width:70%}
+.paper .pnum{font-size:11px;font-weight:700;color:#334155;margin-top:9px;letter-spacing:.6px}
+@keyframes paperFloat{0%{transform:translateY(0) rotate(var(--rot,0deg))}
+  100%{transform:translateY(-16px) rotate(calc(var(--rot,0deg) + 3deg))}}
+@media(max-width:640px){.paper{width:74px;height:88px;padding:8px}.paper .pw{font-size:10px}
+  .paper .pl{height:4px;margin-top:4px}.paper .pnum{font-size:9px;margin-top:5px}}
+.shard{position:absolute;left:50%;top:50%;width:22px;height:22px;border-radius:4px;z-index:1;
+  background:linear-gradient(135deg,#D94141,#7F1D1D);opacity:0;will-change:transform,opacity}
+.splash.explode .shard{animation:shardFly .8s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes shardFly{0%{opacity:1;transform:translate(-50%,-50%) rotate(0) scale(1)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--rot)) scale(.35)}}
+body.app-zoom .layout,body.app-zoom header{animation:appIn .8s cubic-bezier(.22,1,.36,1)}
+@keyframes appIn{0%{transform:scale(.94);opacity:.4}100%{transform:scale(1);opacity:1}}
+.app-foot{text-align:center;padding:18px;border-top:1px solid var(--hair);color:var(--muted);font-size:12.5px;margin-top:16px}
+.app-foot .sub{font-size:11px;opacity:.75;margin-top:4px}
+
+/* ============ TOAST ============ */
+#toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{background:var(--text);color:var(--bg);padding:11px 20px;border-radius:24px;font-size:13.5px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.3);animation:tin .25s ease}
+@keyframes tin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.mob-tabs{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--hair);z-index:150}
+@media(max-width:900px){.mob-tabs{display:flex}body{padding-bottom:58px}}
+.mob-tabs button{flex:1;padding:9px 0;font-size:10.5px;color:var(--text2);display:flex;flex-direction:column;align-items:center;gap:2px}
+.mob-tabs button.on{color:var(--brand)}
+.mob-tabs button svg{width:20px;height:20px}
+</style>
+</head>
+<body data-theme="light">
+
+<!-- ==================== CINEMATIC SPLASH ==================== -->
+<div class="splash" id="splash">
+  <div class="splash-core">
+    <div class="splash-icon" id="splashIcon"></div>
+    <div class="splash-title">ДЕВОР</div>
+    <div class="splash-sub">Тамоми намуди эълонҳо дар як ҷо</div>
+    <button class="splash-btn" onclick="enterApp()">Ворид шудан ба сомона</button>
+  </div>
+</div>
+
+<!-- ==================== HEADER ==================== -->
+<header>
+  <div class="hdr-in">
+    <button class="logo" onclick="logoTap()" title="Девор — 5 пахш барои Супер-Админ">
+      <span class="logo-emblem" id="logoEmblem">🧱</span>
+      <span id="logoName">Девор</span>
+      <span id="tapDots"></span>
+    </button>
+    <button class="city-btn" onclick="openCity()">📍 <span id="cityLbl">Душанбе</span> ▾</button>
+    <button class="cat-btn" onclick="toggleAside()">Бандҳо ▾</button>
+    <div class="search-wrap">
+      <input id="q" type="search" placeholder="Ҷустуҷӯ дар ҳамаи эълонҳо..." oninput="onSearch()">
+      <button class="s-clear" id="qclr" onclick="clearSearch()" style="display:none">✕</button>
+    </div>
+    <div class="hdr-right">
+      <button class="hbtn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+      <button class="hbtn" onclick="openSaved()">👤 <span>Девори ман</span></button>
+      <button class="hbtn" onclick="openChat()">💬 <span>Чат</span><span class="badge" id="chatBadge" style="display:none">0</span></button>
+      <button class="hbtn" onclick="openSupport()">❔ <span>Дастгирӣ</span></button>
+      <button class="post-btn" onclick="openPost()">+ Сабти эълон</button>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== LAYOUT ==================== -->
+<div class="layout">
+  <aside id="aside">
+    <div class="aside-h">Бандҳо ва филтрҳо</div>
+    <div id="catTree"></div>
+    <div id="filters"></div>
+    <button class="reset-btn" onclick="resetFilters()">Тоза кардани филтрҳо</button>
+    <div class="foot">Созанда: Хайдарзода (Haydarzoda) • 100% Ройгон</div>
+  </aside>
+  <main>
+    <div class="bannerRow" id="bannerRow" style="display:none"></div>
+    <div class="feed-bar" id="feedBar"></div>
+    <div class="grid" id="feed"></div>
+    <div id="mapView" style="display:none">
+      <div class="map-box" id="mapBox">
+        <svg class="map-svg" viewBox="0 0 1000 560" preserveAspectRatio="none">
+          <rect width="1000" height="560" fill="var(--surface)"/>
+          <g stroke="var(--hair)" stroke-width="2">
+            <path d="M0 100H1000M0 220H1000M0 340H1000M0 460H1000"/>
+            <path d="M120 0V560M300 0V560M480 0V560M660 0V560M840 0V560"/>
+          </g>
+          <path d="M700 0 Q640 220 690 560" stroke="#7EC8E3" stroke-width="22" fill="none" opacity=".45"/>
+          <rect x="340" y="180" width="200" height="150" fill="var(--brand-tint)"/>
+          <text x="400" y="260" font-size="15" fill="var(--text2)" font-family="Inter">Марказ</text>
+          <text x="130" y="80" font-size="13" fill="var(--muted)" font-family="Inter">Исмоили Сомонӣ</text>
+          <text x="510" y="400" font-size="13" fill="var(--muted)" font-family="Inter">Шоҳмансур</text>
+          <text x="720" y="120" font-size="13" fill="var(--muted)" font-family="Inter">Сино</text>
+        </svg>
+        <div id="pins"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="app-foot">
+  <p>Developer: Haydarzoda</p>
+  <p class="sub">All rights reserved. • Ҳамаи ҳуқуқҳо ҳифз шудаанд</p>
+</footer>
+
+<button class="map-btn" id="mapToggle" onclick="toggleMap()">🗺️ Харита</button>
+
+<!-- Mobile bottom tabs -->
+<nav class="mob-tabs">
+  <button id="mt0" class="on" onclick="mobileTab(0)">🏠<span>Эълонҳо</span></button>
+  <button id="mt1" onclick="toggleAside()">▦<span>Бандҳо</span></button>
+  <button id="mt2" style="color:var(--brand)" onclick="openPost()">➕<span>Сабти эълон</span></button>
+  <button id="mt3" onclick="openChat()">💬<span>Чат</span></button>
+  <button id="mt4" onclick="openSaved()">👤<span>Девори ман</span></button>
+</nav>
+
+<!-- ==================== MODALS ==================== -->
+<div class="ov" id="ovCity"><div class="modal"><button class="m-close" onclick="closeOv('ovCity')">✕</button>
+  <div class="m-title">Интихоби шаҳр</div>
+  <input id="cityQ" placeholder="Ҷустуҷӯи шаҳр..." oninput="renderCity()" style="margin-bottom:10px">
+  <div class="city-list" id="cityList"></div>
+</div></div>
+
+<div class="ov" id="ovDetail"><div class="modal wide" id="detailBody"></div></div>
+<div class="ov" id="ovPost"><div class="modal" id="postBody"></div></div>
+<div class="ov" id="ovSaved"><div class="modal wide" id="savedBody"></div></div>
+<div class="ov" id="ovChat"><div class="modal wide" id="chatBody"></div></div>
+<div class="ov" id="ovSupport"><div class="modal" id="supportBody"></div></div>
+<div class="ov" id="ovAdmin"><div class="modal" id="adminBody"></div></div>
+<div class="ov" id="ovPanel"><div class="modal wide" id="panelBody"></div></div>
+
+<div class="ota" id="otaBanner" style="display:none">
+  🚀 <span id="otaTxt">Навсозии нав баромад!</span>
+  <button onclick="applyOta()">Насб кардан</button>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+"use strict";
+/* ==================== ДАННЫЕ ==================== */
+const CITIES=['Душанбе','Хуҷанд','Бохтар','Кӯлоб','Истаравшан','Ваҳдат','Ҳисор','Турсунзода','Панҷакент','Исфара','Конибодом','Хоруғ','Ҳамаи Тоҷикистон'];
+const DISTRICTS=['Исмоили Сомонӣ','Сино','Фирдавсӣ','Шоҳмансур','Марказ','33 мкр','82 мкр','Зарафшон','Садбарг','Профсоюз','Бохтар-марказ','Хуҷанд-марказ'];
+const ROOMS=['1-хонагӣ','2-хонагӣ','3-хонагӣ','4-хонагӣ','5-хонагӣ','6-хонагӣ ва зиёда'];
+const CAR_BRANDS=['Toyota','Mercedes-Benz','Hyundai','Opel','BMW','Lexus','GAC','Kia','BYD','Daewoo','Lada (ВАЗ)','Dongfeng','Volkswagen','Land Rover','Honda','Nissan','Chevrolet','Changan','Leapmotor','Zeekr','Tesla','LiXiang','Audi','Mazda','Mitsubishi','Skoda','Porsche','Тамғаи дигар'];
+const PHONE_BRANDS=['Apple','Samsung','Xiaomi','Huawei (Honor)','Tecno','Infinix','Novey','Itel','Realme','Vivo','Oppo','Google','OnePlus','Vertu','ZTE','Nothing Phone','ASUS'];
+const CATS=[
+ {n:'Навсохтҳо',ic:'🏢',ch:[{n:'Навсохтҳои дар ҷараёни сохтмон'},{n:'Навсохтҳои омода'},{n:'Навсохтҳои иҷорагӣ'}]},
+ {n:'Амволи ғайриманқул',ic:'🏠',ch:[
+   {n:'Фурӯши хонаҳо',ch:ROOMS.map(r=>({n:r}))},
+   {n:'Иҷораи хонаҳо',ch:ROOMS.map(r=>({n:r}))},
+   {n:'Фурӯши ҳавлӣ ва дача'},{n:'Иҷораи ҳавлӣ'},{n:'Иҷораи якшабонарӯзаи хона, ҳавлӣ'},
+   {n:'Иҷораи ҳуҷраҳо'},{n:'Фурӯши манзил барои корхона'},{n:'Иҷораи манзил барои корхона'},
+   {n:'Фурӯш, иҷораи гараж ва таваққуфгоҳ'},{n:'Фурӯши бинои алоҳида истода'},
+   {n:'Фурӯш ва иҷораи сохтмон бо замини наздиҳавлигӣ'},{n:'Иҷораи дача'},
+   {n:'Фурӯш, иҷораи вагон ва хоначаи муваққатӣ'}]},
+ {n:'Нақлиёт',ic:'🚗',ch:[
+   {n:'Автомобили сабукрав',ch:CAR_BRANDS.map(b=>({n:b}))},
+   {n:'Лавозимот ва қисмҳои нақлиёт',ch:[{n:'Қисмҳои эҳтиётии автомобил'},{n:'Лавозимот барои автомобил'},{n:'Шина ва дискаҳо'},{n:'Қисмҳои эҳтиётии техникаи махсус ва кишоварзӣ'},{n:'Автосадо, видео'},{n:'Қисмҳои эҳтиётии мототсикл'},{n:'Лавозимот барои мототсикл'},{n:'Равған ва автохимия'}]},
+   {n:'Мото нақлиёт'},
+   {n:'Нақлиёти тиҷоратӣ',ch:[{n:'Техникаи сохтмонӣ ва махсус'},{n:'Нақлиёти боркаш'},{n:'Техникаи кишоварзӣ'},{n:'Нақлиёти тиҷоратии сабук'},{n:'Автобусҳо'}]},
+   {n:'Хизматгузорӣ ва таъмири нақлиёт'},{n:'Ядак ва контейнерҳо'},
+   {n:'Дигар нақлиёт',ch:[{n:'Аробачаи маъюбон'},{n:'Гироскутерҳо'},{n:'Нақлиёти обӣ'}]}]},
+ {n:'Ҷои кор',ic:'💼',ch:['Рестораторҳо, ошпазҳо, пешхизматҳо','Тиҷорат, савдои чакана','Кормандони гуногунсоҳа','Ҳисобдорӣ, молия, ҳуқуқшиносҳо','Кормандони хонагӣ, хизматрасонӣ','Нақлиёт, логистика, анбор','Кормандони маъмурӣ','Маориф, фарҳанг, санъат','IT, телеком, компютерҳо','Тиб, фарматсия','Маркетинг, таблиғот, ороиш','Истеҳсолот, энергетика','Бонкҳо, суғурта, лизинг','Роҳбарон','Сохтмон, амволи ғайриманқул','Шӯъбаи кадрҳо','Зебой, фитнес, варзиш','Оҷонсии кадрҳо','Кор дар хориҷа','Мудофиа, амният','Оғози мансаб, донишҷӯён','Саёҳӣ, меҳмонхонаҳо','Шуғли қисман','ВАО, нашриётҳо','Дигар соҳаи шуғл'].map(s=>({n:s}))},
+ {n:'Телефонҳо ва алоқа',ic:'📱',ch:[
+   {n:'Телефонҳои мобилӣ',ch:PHONE_BRANDS.map(b=>({n:b}))},
+   {n:'Лавозимот барои телефон',ch:[{n:'Гӯшмонакҳо'},{n:'Аккумулятори берунӣ'},{n:'Смарт-соатҳо'},{n:'Лавозимоти наворбардорӣ'},{n:'Асбоби заряддиҳӣ'},{n:'Ғилофҳо'},{n:'Лавозимотҳо'},{n:'Дорандагони телефон'},{n:'Геймпад, триггер'},{n:'Корти хотира'},{n:'Data-ноқилҳо'},{n:'Колбад / панел'},{n:'Плёнка ва шишаҳои ҳифозатӣ'}]},
+   {n:'Қисмҳо ва асбобҳо барои таъмири телефонҳо'},{n:'Телефонҳои статсионарӣ'},
+   {n:'Дигар таҷҳизоти алоқа'},{n:'Хизматгузорӣ ва таъмири телефонҳо'}]},
+ {n:'Олами кӯдакон',ic:'🧸',ch:[
+   {n:'Мебели кӯдакона',ch:[{n:'Рахти хоб'},{n:'Ҷевонҳо, комод, рафчаҳо'},{n:'Гаҳвораҳо'},{n:'Миз, курсиҳо'},{n:'Шезлонг'},{n:'Курсиҳо барои хурокхӯрӣ'},{n:'Маҷмӯи мебели кӯдакона'}]},
+   {n:'Нақлиёти кӯдакона',ch:[{n:'Мошини кӯдакона'},{n:'Велосипеди кӯдакона'},{n:'Роликҳо, самокатҳо'},{n:'Мототсикли кӯдакона'},{n:'Роҳгардаки кӯдакона'},{n:'Велоколяска'}]},
+   {n:'Арғунчак ва аробачаҳои кӯдакона',ch:[{n:'Аробачаҳои кӯдакона'},{n:'Арғунчакҳо'}]},
+   {n:'Пойафзоли кӯдакона',ch:[{n:'Барои духтарон'},{n:'Барои писарон'}]},
+   {n:'Либоси кӯдакона'},{n:'Бозичаҳо'},{n:'Молҳо барои мактаббачагон'},{n:'Молҳо барои оббозии кӯдакон'},
+   {n:'Лавозимоти бистарӣ'},{n:'Молҳо барои модарон'},{n:'Молҳо барои хӯрокдиҳӣ'},
+   {n:'Курсии кӯдакона барои мошин'},{n:'Соатҳои кӯдакона'},{n:'Дигар молҳои кӯдакона'}]},
+ {n:'Либос ва ашёҳои шахсӣ',ic:'👗',ch:[{n:'Атриёт ва косметика'},{n:'Либоси занона'},{n:'Соатҳо ва зинат'},{n:'Либоси мардона'},{n:'Пойафзол'},{n:'Ҷомадонҳо, ҷузвадонҳо, клатчҳо'},{n:'Лавозимотҳо, шарфҳо, каллапӯшҳо'},{n:'Барои тӯй'},{n:'Матоъ ва лавозимот барои дӯхтани либос'},{n:'Иҷораи либос'},{n:'Молҳои гумшуда ва ёфтшуда'},{n:'Дигар молҳо'}]},
+ {n:'Компютерҳо ва таҷҳизоти идоравӣ',ic:'💻',ch:[{n:'Лавозимотҳо ва қисмҳои эҳтиётӣ'},{n:'Барномаҳо ва бозиҳо'},{n:'Планшетҳо ва китобҳои электронӣ'},{n:'Ноутбукҳо'},{n:'Модемҳо ва таҷҳизоти шабакавӣ'},{n:'Дастгоҳи бозикунӣ'},{n:'Компютерҳои шахсӣ'},{n:'Мониторҳо ва проекторҳо'},{n:'Принтерҳо ва сканерҳо'},{n:'Таъмир'},{n:'Серверҳо'},{n:'Дигар таҷҳизот'}]},
+ {n:'Электроника ва таҷҳизоти маишӣ',ic:'📺',ch:[{n:'Таҷҳизот барои манзил ва ошхона'},{n:'Таҷҳизоти иқлимӣ'},{n:'Барои нигоҳубини шахсӣ'},{n:'TV, DVD ва видео'},{n:'Системаҳои назорати видеоӣ, амният ва "Хонаи доно"'},{n:'Аудио ва стерео'},{n:'Таҷҳизот ва лавозимоти тиббӣ'},{n:'Лавозимотҳо'},{n:'Суратгирак ва видеокамераҳо'},{n:'Қисмҳои радио ва электронӣ'},{n:'Дигар таҷҳизот'}]},
+ {n:'Барои манзил',ic:'🛋️',ch:[{n:'Мебел'},{n:'Молҳои бофандагӣ ва ороишоти дохили хона'},{n:'Зарфҳо ва лавозимоти ошхона'},{n:'Ашёи рӯзғор ва кимиёи маишӣ'},{n:'Боғ ва обчакорӣ'},{n:'Сейфҳо'},{n:'Молҳои идона'},{n:'Молҳои канселярӣ'},{n:'Маҳсулоти хӯрокворӣ'},{n:'Дигар молҳо барои манзил'}]},
+ {n:'Сохтмон, ашёи хом ва таъмир',ic:'🔨',ch:[{n:'Масолеҳи сохтмонӣ ва ороишӣ'},{n:'Асбоби электрикӣ'},{n:'Асбоби дастӣ'}]},
+ {n:'Шавқу завқ, мусиқӣ ва варзиш',ic:'🎸',ch:[{n:'Бозичаҳои бузургсолон'},{n:'Китобҳо ва журналҳо'},{n:'Мусиқӣ'},{n:'Варзиш'},{n:'Велосипедҳо'},{n:'Олами бозиҳо'},{n:'Маҷлисҳо ва сайёҳат'},{n:'Дигар шавқу завқ'}]},
+ {n:'Ҳайвонот ва растаниҳо',ic:'🐾',ch:[{n:'Сагҳо'},{n:'Пушакҳо'},{n:'Паррандаҳо'},{n:'Моҳӣ'},{n:'Ҷонварҳои хона',ch:[{n:'Хирсҳо'},{n:'Харгӯшҳо'}]},{n:'Молҳои хайвонот'},{n:'Хизматрасониҳо барои ҳайвонот'},{n:'Хӯроки ҳайвонот'},{n:'Растаниҳо'},{n:'Дигар ҷонварон'}]},
+ {n:'Хизматрасониҳо',ic:'🛠️',ch:[{n:'Таъмир ва сохтмон'},{n:'Ороиш ва либосшӯй'},{n:'Ташхис ва таъмири техникӣ'},{n:'Омӯзиш ва дирёзҳо'},{n:'Нақлиёт ва сайёҳат'},{n:'Ороиши тӯй ва ҷашнҳо'},{n:'Фотосуратгирӣ ва видео'},{n:'Ҳисобдорӣ ва ҳуқуқ'},{n:'Интернет ва телеком'},{n:'Тандурустӣ'},{n:'Хизматрасониҳои дигар'}]},
+ {n:'Барои тиҷорат',ic:'🏬',ch:[{n:'Биноҳо ва дуконҳо'},{n:'Таҷҳизоти тиҷоратӣ'},{n:'Маҳсулот ва мол'},{n:'Маводи ашёи хом'},{n:'Стиролҳо ва тагҳо'},{n:'Дигар тиҷорат'}]},
+ {n:'Ройгон медиҳам',ic:'🎁',ch:[{n:'Мебел ва ашёи хона'},{n:'Либос ва пойафзол'},{n:'Бозичаҳо'},{n:'Таҷҳизот'},{n:'Китобҳо'},{n:'Дигар молҳои ройгон'}]}
+];
+function seedAds(){
+  const G={car:['#B0BEC5','#78909C'],home:['#FFCC80','#FFB74D'],ph:['#90CAF9','#64B5F6'],pc:['#A5D6A7','#81C784'],kid:['#F48FB1','#F06292'],cl:['#CE93D8','#BA68C8'],pet:['#FFAB91','#FF8A65'],job:['#80DEEA','#4DD0E1'],bl:['#E0E0E0','#BDBDBD'],ot:['#FFF59D','#FFEE58']};
+  let n=0;
+  const mk=(t,cp,sp,pr,ic,g,st,d,tel,ex,ur,fr)=>({id:'ad'+(++n),t,cp,sp,pr,ic,g:g[0]+','+g[1],st,d,tel,ph:3,ex:!!ex,ur:!!ur,fr:!!fr,time:(n*7%59)+2+' дақиқа пеш',seller:['Фаридун Р.','Далер Ш.','Сино А.','Умед Т.','Мадина Ю.','ХР «Иқбол»','Шамс Ҳ.','Шоҳина К.'][n%8],desc:''});
+  return [
+   mk('Хонаи 2-хонагӣ дар маркази Душанбе','Амволи ғайриманқул/Фурӯши хонаҳо/2-хонагӣ','2-хонагӣ, 71 м², 10 ошёна',106500000,'🏠',G.home,{'Хонаҳо':'2','Масоҳат':'71 м²','Ошёна':'10','Масолеҳ':'Монолит','Гармидиҳӣ':'Ҳаст'},'Сомонӣ','+992 90 123 45 67'),
+   mk('Toyota Camry 2023, як соҳиб','Нақлиёт/Автомобили сабукрав/Toyota','Автомат • Бензин • 2023',235000000,'🚗',G.car,{'Тамға':'Toyota','Сол':'2023','Кузов':'Седан','Қуттӣ':'Автоматикӣ','Сӯзишворӣ':'Бензин'},'Исмоили Сомонӣ','+992 93 222 11 00',1),
+   mk('iPhone 15 Pro 256GB — нав','Телефонҳо ва алоқа/Телефонҳои мобилӣ/Apple','Нав • IMEI санҷидашуда',9800000,'📱',G.ph,{'Тамға':'Apple','Хотира':'256 GB','Ҳолат':'Нав','IMEEI':'Санҷидашуда'},'Профсоюз','+992 55 400 30 20'),
+   mk('Ноутбук Lenovo IdeaPad 5, Ryzen 7','Компютерҳо ва таҷҳизоти идоравӣ/Ноутбукҳо','Ryzen 7, 16GB, 512GB SSD',5400000,'💻',G.pc,{'Процессор':'Ryzen 7 5700U','RAM':'16 GB','Диск':'512 GB SSD'},'Зарафшон','+992 91 555 44 33'),
+   mk('Кӯрпаи нав — мубодила бо велосипеди кӯдакона','Ройгон медиҳам/Дигар молҳои ройгон','Мубодила • Ҳолати нав',null,'🎁',G.ot,{'Навъ':'Мубодила','Ҳолат':'Нав'},'82 мкр','+992 50 777 66 55',1),
+   mk('Ошпаз — ресторани «Иқбол»','Ҷои кор/Рестораторҳо, ошпазҳо, пешхизматҳо','Маош: 4 500 с. • Рӯзона',4500000,'💼',G.job,{'Маош':'4 500 с.','Реҷа':'Рӯзона','Таҷриба':'аз 2 сол'},'Садбарг','+992 88 111 22 33'),
+   mk('Шинаи зим R16 — 4 дона','Нақлиёт/Лавозимот ва қисмҳои нақлиёт/Шина ва дискаҳо','R16, зим, 70% профил',1200000,'🚗',G.bl,{'Шино':'Зим','Андоза':'R16','Микдор':'4 дона'},'33 мкр','+992 92 000 11 22'),
+   mk('Samsung Galaxy S23 Ultra 512GB','Телефонҳо ва алоқа/Телефонҳои мобилӣ/Samsung','Дар ҳолати хуб • IMEI санҷидашуда',7900000,'📱',G.ph,{'Тамға':'Samsung','Хотира':'512 GB','Батарея':'95%'},'Фирдавсӣ','+992 99 333 44 55',1),
+   mk('Гаҳвораи нав бо матраси ортопедӣ','Олами кӯдакон/Мебели кӯдакона/Гаҳвораҳо','Нав • Чӯби сӯзан',1450000,'🧸',G.kid,{'Матрас':'Ортопедӣ','Ҳолат':'Нав'},'Марказ','+992 90 888 77 66'),
+   mk('Ҳавлии 3-ошёна бо замин — 6 сотих','Амволи ғайриманқул/Фурӯши ҳавлӣ ва дача','6 сотих, 120 м²',42000000,'🏠',G.home,{'Замин':'6 сотих','Хона':'120 м²','Об/Газ':'Ҳаст'},'Ҳисор','+992 48 555 12 34',0,1),
+   mk('BMW 320i 2019 — тамоми таъмир','Нақлиёт/Автомобили сабукрав/BMW','Автомат • Бензин • 2019',189000000,'🚗',G.car,{'Тамға':'BMW','Сол':'2019','Кузов':'Седан'},'Сино','+992 93 999 88 77',1),
+   mk('Пушакҳои хушзот — ройгон медиҳам','Ҳайвонот ва растаниҳо/Пушакҳо','2 моҳагӣ • Ройгон',null,'🐾',G.pet,{'Навъ':'Пушак','Сол':'2 моҳ'},'Шоҳмансур','+992 55 222 33 44',0,0,1),
+   mk('Савдоги дар дукон','Ҷои кор/Тиҷорат, савдои чакана','Маош: 2 800 с. • Реҷаи озод',2800000,'💼',G.job,{'Реҷа':'Реҷаи озод','Таҷриба':'Бе таҷриба'},'Исмоили Сомонӣ','+992 88 555 66 77'),
+   mk('Xiaomi Mi Electric Scooter 4','Нақлиёт/Дигар нақлиёт/Гироскутерҳо','Электр • 25 км/соат',2200000,'🛴',G.ot,{'Тамға':'Xiaomi','Сӯзишворӣ':'Электр'},'Профсоюз','+992 90 444 55 66',1),
+   mk('Мебели ошхона — миз + 6 курсӣ','Барои манзил/Мебел','Чӯби табиӣ',3800000,'🛋️',G.ot,{'Масолеҳ':'Чӯби табиӣ','Микдор':'Миз + 6 курсӣ'},'Зарафшон','+992 92 666 77 88',1),
+   mk('МАЗ 54323 — боркаш','Нақлиёт/Нақлиёти тиҷоратӣ/Нақлиёти боркаш','Дизел • 2015 • 20 тонна',145000000,'🚛',G.car,{'Тамға':'МАЗ','Сол':'2015','Сӯзишворӣ':'Дизел'},'Турсунзода','+992 48 777 88 99'),
+   mk('Партияи либосҳои ортензӣ','Либос ва ашёҳои шахсӣ/Либоси занона','Нав • 12 дона',350000,'👗',G.cl,{'Микдор':'12 дона','Ҳолат':'Нав'},'Фирдавсӣ','+992 90 333 22 11'),
+   mk('PlayStation 5 Slim 1TB','Компютерҳо ва таҷҳизоти идоравӣ/Дастгоҳи бозикунӣ','Нав • 1TB • 2 геймпад',6500000,'🎮',G.pc,{'Тамға':'Sony','Хотира':'1TB','Ҳолат':'Нав'},'82 мкр','+992 99 111 22 33',1),
+   mk('Хона дар ЖК «Душанбе-Сити»','Навсохтҳо/Навсохтҳои дар ҷараёни сохтмон','2-хонагӣ, 64 м², 7 ошёна',68000000,'🏢',G.home,{'Масоҳат':'64 м²','Насия':'Ҳаст • 24 моҳ','Тахмин':'12.2026'},'Исмоили Сомонӣ','+992 50 888 99 00'),
+   mk('Хизмат: таъмири мошин дар ҷой','Хизматрасониҳо/Таъмир ва сохтмон','24/7 • Душанбе',null,'🛠️',G.bl,{'Соатҳо':'24/7','Ноҳия':'Душанбе'},'Сино','+992 93 123 65 43'),
+   mk('Курсии кӯдакона барои мошин 0+/12','Олами кӯдакон/Курсии кӯдакона барои мошин','Нав • 0-12 сол • EU',900000,'🧸',G.kid,{'Сертификат':'Ҳаст','Ҳолат':'Нав'},'Марказ','+992 91 321 65 49'),
+   mk('Oppo A58 128GB','Телефонҳо ва алоқа/Телефонҳои мобилӣ/Oppo','Истифодашуда • Батарея 5000mAh',1150000,'📱',G.ph,{'Хотира':'128 GB','Ҳолат':'8/10'},'Бохтар-марказ','+992 55 654 32 10'),
+   mk('Такси барои сайёҳат — Сӯғд','Хизматрасониҳо/Нақлиёт ва сайёҳат','То 4 киши • Душанбе—Сӯғд',null,'🚕',G.ot,{'Навъ':'Такси','Асса':'4 киши'},'Хуҷанд-марказ','+992 92 987 65 43'),
+   mk('Маҷмӯи бозичаҳои мактаббачагон','Олами кӯдакон/Молҳо барои мактаббачагон','Нав • 3-10 сол',450000,'🎒',G.kid,{'Ҳолат':'Нав'},'Садбарг','+992 90 999 11 22'),
+   mk('Хонаи якшабонарӯза дар Панҷакент','Амволи ғайриманқул/Иҷораи якшабонарӯзаи хона, ҳавлӣ','1 шабона • 350 с.',3500000,'🏡',G.home,{'Хонаҳо':'3','Wi-Fi':'Ҳаст','Сауна':'Ҳаст'},'Панҷакент','+992 48 654 98 76'),
+   mk('Mercedes-Benz C180 2020','Нақлиёт/Автомобили сабукрав/Mercedes-Benz','Автомат • Бензин • 2020',215000000,'🚗',G.car,{'Тамға':'Mercedes-Benz','Сол':'2020','Кузов':'Седан'},'Хуҷанд-марказ','+992 93 456 78 90',1),
+   mk('Дарворӣ ва либосшӯй','Хизматрасониҳо/Ороиш ва либосшӯй','9:00-20:00 • Садбарг',null,'✂️',G.cl,{'Замина':'Дар дукон'},'Садбарг','+992 55 789 12 34'),
+   mk('Стол бозиҳо бо 2 ракетка','Шавқу завқ, мусиқӣ ва варзиш/Варзиш','Стандарт • 8/10',1800000,'🏓',G.ot,{'Навъ':'Столни бозӣ','Ҳолат':'8/10'},'33 мкр','+992 50 222 44 66'),
+   mk('Муҳосиб — бонк «Арванд»','Ҷои кор/Ҳисобдорӣ, молия, ҳуқуқшиносҳо','Маош: 6 500 с. • Таҷриба аз 3 сол',6500000,'💼',G.job,{'Маош':'6 500 с.','Реҷа':'Рӯзона'},'Исмоили Сомонӣ','+992 88 345 67 89'),
+   mk('Таги бузург 50 кг — 10 дона','Барои тиҷорат/Стиролҳо ва тагҳо','Нав • 50 кг',120000,'📦',G.bl,{'Вазн':'50 кг','Микдор':'10 дона'},'Ваҳдат','+992 92 111 33 55'),
+   mk('Дастгоҳи хуш-садо — аудио систем','Электроника ва таҷҳизоти маишӣ/Аудио ва стерео','Нав • Bluetooth 5.3',780000,'🔊',G.pc,{'Ҳолат':'Нав','Bluetooth':'5.3'},'Фирдавсӣ','+992 90 234 56 78'),
+   mk('Пойафзоли кӯдакона — барои писарон','Олами кӯдакон/Пойафзоли кӯдакона/Барои писарон','Нав • 25-31 андоза',260000,'👟',G.kid,{'Андоза':'25-31','Ҳолат':'Нав'},'Ваҳдат','+992 50 987 11 22',0,0,1)
+  ];
+}
+
+/* ==================== ҲОЛАТ ==================== */
+const S={
+  ads:seedAds(), city:'Душанбе', q:'', cat:null, path:[], districts:new Set(),
+  min:null, max:null, freeOnly:false, photoOnly:false, exOnly:false, urgOnly:false,
+  sort:'new', mapView:false, bookmarks:JSON.parse(localStorage.getItem('dv_bk')||'[]'),
+  recent:JSON.parse(localStorage.getItem('dv_rc')||'[]'),
+  myAds:JSON.parse(localStorage.getItem('dv_my')||'[]'),
+  chats:JSON.parse(localStorage.getItem('dv_ch')||'[]'),
+  theme:localStorage.getItem('dv_th')||'light'
+};
+const QUICK=['Салом, ҳоло ҳам ҳаст?','Нархи охираш чанд?','Дар куҷо дидан мумкин?'];
+function save(){localStorage.setItem('dv_bk',JSON.stringify(S.bookmarks));localStorage.setItem('dv_rc',JSON.stringify(S.recent));localStorage.setItem('dv_my',JSON.stringify(S.myAds));localStorage.setItem('dv_ch',JSON.stringify(S.chats));localStorage.setItem('dv_th',S.theme);}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>n===null?'Ройгон':n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' с.';
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.getElementById('toasts').appendChild(t);setTimeout(()=>t.remove(),2600);}
+function maskPhone(p){const d=p.replace(/\D/g,'');return '+992 '+d.slice(3,5)+' *** ** '+d.slice(-2);}
+
+/* ==================== THUMBNAIL (акси воқеӣ ё gradient SVG, офлайн) ==================== */
+function thumbSVG(ad,size){
+  const [c1,c2]=(ad.g||'#A62626,#D94141').split(',');
+  // Ҳифзи ҳаримӣ: дар badge ТАНҲО шумораи аксҳо — ҳеҷ рақами телефон НЕСТ
+  const n=(ad.photos&&ad.photos.length)||(typeof ad.ph==='number'?ad.ph:3);
+  const inner=(ad.photos&&ad.photos[0])
+    ?`<img src="${ad.photos[0]}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`
+    :ad.ic;
+  return `<div class="thumb" style="background:linear-gradient(135deg,${c1},${c2});font-size:${size===136?44:28}px">${inner}
+    ${size===136?`<span class="ph-badge">📷 ${n}</span><button class="heart ${S.bookmarks.includes(ad.id)?'on':''}" onclick="event.stopPropagation();toggleBk('${ad.id}')">♥</button>`:''}</div>`;
+}
+
+/* ==================== FILTER ==================== */
+function filtered(){
+  let r=S.ads.concat(S.myAds);
+  if(S.cat) r=r.filter(a=>a.cp.startsWith(S.cat));
+  if(S.q){const q=S.q.toLowerCase();r=r.filter(a=>(a.t+' '+a.sp+' '+a.d+' '+JSON.stringify(a.st)).toLowerCase().includes(q));}
+  if(S.districts.size) r=r.filter(a=>S.districts.has(a.d));
+  if(S.min!==null) r=r.filter(a=>a.pr!==null&&a.pr>=S.min);
+  if(S.max!==null) r=r.filter(a=>a.pr!==null&&a.pr<=S.max);
+  if(S.freeOnly) r=r.filter(a=>a.fr||a.pr===null);
+  if(S.photoOnly) r=r.filter(a=>(a.ph||3)>2);
+  if(S.exOnly) r=r.filter(a=>a.ex);
+  if(S.urgOnly) r=r.filter(a=>a.ur);
+  if(S.sort==='cheap') r=[...r].sort((a,b)=>(a.pr??-1)-(b.pr??-1));
+  else if(S.sort==='exp') r=[...r].sort((a,b)=>(b.pr??-1)-(a.pr??-1));
+  return r;
+}
+
+/* ==================== RENDER FEED ==================== */
+function renderFeed(){
+  const feed=document.getElementById('feed'),r=filtered();
+  feed.innerHTML=r.length?r.map(a=>`
+    <div class="ad-card" onclick="openDetail('${a.id}')">
+      <div class="ad-l">
+        <div class="ad-t">${esc(a.t)}</div>
+        <div class="ad-s">${esc(a.sp)}</div>
+        <div class="ad-p ${a.pr===null?'free':''}">${fmt(a.pr)}${a.pr===null?'':' • Сӯзишворӣ'}</div>
+        <div class="ad-m">${esc(a.time)} дар ${esc(a.d)}${a.ex?'<span class="tag">Мубодила</span>':''}${a.ur?'<span class="tag org">Фаврӣ</span>':''}</div>
+      </div>
+      <div class="ad-r">${thumbSVG(a,136)}</div>
+    </div>`).join(''):'<div class="empty"><div style="font-size:44px">🔍</div>Эълоне ёфт нашуд</div>';
+  renderBar();renderPins();
+}
+function renderBar(){
+  const chips=[];
+  if(S.cat) chips.push(`<button class="fchip-x" onclick="setCat(null)">${esc(S.cat.split('/').pop())} ✕</button>`);
+  for(const d of S.districts) chips.push(`<button class="fchip-x" onclick="S.districts.delete('${esc(d)}');renderAll()">${esc(d)} ✕</button>`);
+  if(S.freeOnly) chips.push('<button class="fchip-x" onclick="S.freeOnly=false;renderAll()">Танҳо ройгон ✕</button>');
+  if(S.exOnly) chips.push('<button class="fchip-x" onclick="S.exOnly=false;renderAll()">Мубодила ✕</button>');
+  document.getElementById('feedBar').innerHTML=
+    `<span class="crumb">${esc(S.city)}${S.cat?' → '+esc(S.cat):''}</span> ${chips.join(' ')}
+     <select class="sort" onchange="S.sort=this.value;renderFeed()" style="margin-left:auto">
+       <option value="new" ${S.sort==='new'?'selected':''}>Навтарин</option>
+       <option value="cheap" ${S.sort==='cheap'?'selected':''}>Арзонтарин</option>
+       <option value="exp" ${S.sort==='exp'?'selected':''}>Қиматтарин</option>
+     </select>`;
+}
+function renderPins(){
+  const r=filtered().slice(0,9),box=document.getElementById('pins');
+  box.innerHTML=r.map((a,i)=>`<button class="pin" style="left:${8+(i%3)*30}%;top:${12+Math.floor(i/3)*26}%" onclick="openDetail('${a.id}')">${fmt(a.pr)}</button>`).join('');
+}
+function toggleMap(){
+  S.mapView=!S.mapView;
+  document.getElementById('feed').style.display=S.mapView?'none':'grid';
+  document.getElementById('mapView').style.display=S.mapView?'block':'none';
+  document.getElementById('mapToggle').innerHTML=S.mapView?'☰ Рӯйхат':'🗺️ Харита';
+}
+
+/* ==================== SIDEBAR ==================== */
+function catCount(name){return S.ads.concat(S.myAds).filter(a=>a.cp.includes(name)).length;}
+function nodesAt(){let n=SCHEMA.cats;for(const seg of S.path){const f=n.find(x=>x.n===seg);if(!f)return n;n=f.ch||[];}return n;}
+function renderCats(){
+  const ns=nodesAt().filter(n=>!n.h),tree=document.getElementById('catTree');
+  tree.innerHTML=`<div class="side-title">${S.path.length?'<button class="back-btn" onclick="S.path.pop();renderAll()">← Ҳамаи бандҳо</button>':'Бандҳо'}<span></span></div>`+
+   ns.map(n=>`<div class="cat-item ${S.cat&&S.cat.split('/').pop()===n.n?'active':''}" onclick="clickCat('${esc(n.n)}')">
+     <span class="ic">${n.ic||(S.path.length?'•':'▦')}</span><span>${esc(n.n)}</span>
+     <span class="cnt">${catCount(n.n)}</span>${n.ch?'<span>›</span>':''}</div>`).join('');
+}
+function clickCat(name){
+  const ns=nodesAt(),node=ns.find(x=>x.n===name);
+  if(!node)return;
+  if(node.ch){S.path.push(name);renderAll();return;}
+  const root=S.path[0]||name;
+  setCat(root);S.path=[];
+}
+function setCat(c){S.cat=c;renderAll();}
+
+/* ---- Аккордеон филтрҳо ---- */
+function acc(id,title,body){
+  return `<div class="acc" id="acc_${id}"><div class="acc-h" onclick="document.getElementById('acc_${id}').classList.toggle('open')">${title}<span class="chev">▾</span></div><div class="acc-b">${body}</div></div>`;
+}
+function renderFilters(){
+  document.getElementById('filters').innerHTML=
+   acc('d','📍 Маҳалла',`<div class="chips">${districtsFor(S.city).map(d=>`<button class="fchip ${S.districts.has(d)?'sel':''}" onclick="tog('${esc(d)}')">${esc(d)}</button>`).join('')}</div>`)
+   +acc('p','💰 Нарх',`<div class="two"><input id="fmin" type="number" placeholder="Аз (с.)" value="${S.min??''}"><input id="fmax" type="number" placeholder="То (с.)" value="${S.max??''}"></div>
+     <div class="sw-row"><span>Танҳо ройгон</span><div class="switch ${S.freeOnly?'on':''}" onclick="S.freeOnly=!S.freeOnly;renderAll()"></div></div>`)
+   +acc('st','⚙️ Ҳолати эълон',`
+     <div class="sw-row"><span>Танҳо аксдор</span><div class="switch ${S.photoOnly?'on':''}" onclick="S.photoOnly=!S.photoOnly;renderAll()"></div></div>
+     <div class="sw-row"><span>Бо мубодила</span><div class="switch ${S.exOnly?'on':''}" onclick="S.exOnly=!S.exOnly;renderAll()"></div></div>
+     <div class="sw-row"><span>Фаврӣ</span><div class="switch ${S.urgOnly?'on':''}" onclick="S.urgOnly=!S.urgOnly;renderAll()"></div></div>`)
+   +domainFilters();
+}
+function domainFilters(){
+  if(!S.cat)return '';
+  const c=S.cat.toLowerCase();
+  if(c.startsWith('амвол')||c.startsWith('навсохт'))
+   return acc('dm','📐 Филтрҳои манзил',`<div class="chips">${ROOMS.map((r,i)=>`<button class="fchip" onclick="toast('Филтр: ${esc(r)}')">${esc(r)}</button>`).join('')}</div>
+     <div class="two" style="margin-top:6px"><input type="number" placeholder="Масоҳат: Аз м²"><input type="number" placeholder="То м²"></div>
+     <div class="sw-row"><span>Насия</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>`);
+  if(c.startsWith('нақлиёт'))
+   return acc('dm','🚗 Филтрҳои нақлиёт',`<div class="two"><input type="number" placeholder="Сол: Аз"><input type="number" placeholder="То"></div>
+     <div class="chips" style="margin-top:6px">${['Седан','Хэтчбек','Универсал','Ҳамаҷогард','Кроссовер','Пикап','Минивен','Фургон','Кабриолет','Купе','Лифтбэк'].map(k=>`<button class="fchip" onclick="toast('Кузов: ${k}')">${k}</button>`).join('')}</div>
+     <div class="chips" style="margin-top:6px">${['Механикӣ','Автоматикӣ','Вариатор','Робот'].map(k=>`<button class="fchip" onclick="toast('Қуттӣ: ${k}')">${k}</button>`).join('')}</div>
+     <div class="chips" style="margin-top:6px">${['Бензин','Бензин + газ','Газ','Дизел','Гибрид','Электромобил'].map(k=>`<button class="fchip" onclick="toast('Сӯзишворӣ: ${k}')">${k}</button>`).join('')}</div>`);
+  if(isJobCat(S.cat)){
+   const sch=(fieldG('schedule')||{v:[]}).v, exp=(fieldG('experience')||{v:[]}).v;
+   return acc('dm','💼 Филтрҳои кор',`<div class="two"><input type="number" placeholder="Маош: Аз (с.)"><input type="number" placeholder="То (с.)"></div>
+     <div class="chips" style="margin-top:6px">${sch.map(k=>`<button class="fchip" onclick="toast('Реҷа: ${esc(k)}')">${esc(k)}</button>`).join('')}</div>
+     <div class="chips" style="margin-top:6px">${exp.map(k=>`<button class="fchip" onclick="toast('Таҷриба: ${esc(k)}')">${esc(k)}</button>`).join('')}</div>`);
+  }
+  if(c.startsWith('телефон')||c.startsWith('компютер')||c.startsWith('электрон')||c.startsWith('олами')){
+   const cond=(fieldG('condition')||{v:['Нав','Дар ҳолати хуб','Истифодашуда']}).v;
+   return acc('dm','📱 Филтрҳои ҳолат',`<div class="chips">${cond.map(k=>`<button class="fchip" onclick="toast('Ҳолат: ${esc(k)}')">${esc(k)}</button>`).join('')}</div>
+     <div class="sw-row" style="margin-top:6px"><span>IMEI санҷидашуда</span><div class="switch" onclick="this.classList.toggle('on')"></div></div>`);
+  }
+  // Майдонҳои динамикӣ-и custom (аз Schema — бемаҳдуд)
+  const customs=SCHEMA.fields.filter(f=>f.k.startsWith('custom')&&(!f.cat||S.cat.startsWith(f.cat)));
+  if(customs.length)
+   return acc('dm','🔧 Филтрҳои динамикӣ',`<div class="chips">${customs.map(f=>f.v.map(k=>`<button class="fchip" onclick="toast('${esc(f.t)}: ${esc(k)}')">${esc(k)}</button>`).join('')).join('')}</div>`);
+  return '';
+}
+function tog(d){S.districts.has(d)?S.districts.delete(d):S.districts.add(d);renderAll();}
+function resetFilters(){S.cat=null;S.path=[];S.districts.clear();S.min=S.max=null;S.freeOnly=S.photoOnly=S.exOnly=S.urgOnly=false;renderAll();toast('Филтрҳо тоза шудند ✅');}
+function resetAll(){resetFilters();S.q='';document.getElementById('q').value='';window.scrollTo(0,0);renderAll();}
+function toggleAside(){document.getElementById('aside').classList.toggle('open');}
+function renderAll(){renderCats();renderFilters();renderFeed();}
+
+/* ==================== SEARCH ==================== */
+let sT;function onSearch(){clearTimeout(sT);sT=setTimeout(()=>{S.q=document.getElementById('q').value.trim();document.getElementById('qclr').style.display=S.q?'block':'none';renderFeed();},250);}
+function clearSearch(){S.q='';document.getElementById('q').value='';document.getElementById('qclr').style.display='none';renderFeed();}
+
+/* ==================== DETAIL ==================== */
+function openDetail(id){
+  const a=S.ads.concat(S.myAds).find(x=>x.id===id);if(!a)return;
+  if(!S.recent.includes(id)){S.recent.unshift(id);S.recent=S.recent.slice(0,30);save();}
+  const [c1,c2]=a.g.split(',');
+  document.getElementById('detailBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovDetail')">✕</button>
+   <div class="crumb" style="margin-bottom:8px">${esc(a.cp)}</div>
+   ${(a.photos&&a.photos.length)?`
+   <div class="thumb" style="border-radius:8px;height:260px;overflow:hidden;background:#000">
+     <img id="detMainImg" src="${a.photos[0]}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+   </div>
+   <div class="gal">${a.photos.slice(0,8).map((p,i)=>`<div class="g ${i===0?'sel':''}" style="cursor:pointer" onclick="detailSwap(this,'${p}')"><img src="${p}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`).join('')}</div>`
+   :`<div class="thumb" style="background:linear-gradient(135deg,${c1},${c2});border-radius:8px;height:260px;font-size:88px">${a.ic}</div>`}
+   <div style="font-size:20px;font-weight:700;margin:14px 0 4px">${esc(a.t)}</div>
+   <div style="color:var(--muted);font-size:12.5px;margin-bottom:12px">${esc(a.time)} • ${esc(S.city)}, ${esc(a.d)}</div>
+   <div style="font-size:19px;font-weight:700;color:${a.pr===null?'var(--success)':'var(--brand)'};margin-bottom:14px">${fmt(a.pr)}</div>
+   <table class="spec-t">${Object.entries(a.st||{'Ҳолат':'Дар ҳолати хуб'}).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>
+   ${a.desc?`<div style="margin-top:14px;color:var(--text2);line-height:1.6">${esc(a.desc)}</div>`:''}
+   <div class="det-bar">
+     <button class="btn-out" onclick="closeOv('ovDetail');openChatWith('${a.id}')">💬 Чат</button>
+     ${a.tel?`<a class="btn-fill" href="tel:${a.tel.replace(/[^+0-9]/g,'')}" style="flex:1;display:flex;align-items:center;justify-content:center;text-decoration:none">📞 Тамос</a>`
+     :`<button class="btn-fill" onclick="toast('Рақами тамос дастрас нест')" style="flex:1">📞 Тамос</button>`}
+     <button class="btn-out" onclick="reportAd('${a.id}')" style="flex:0 0 auto;padding:13px 16px" title="Гузориш">🚩</button>
+   </div>
+   ${window.adminSession?`<button class="btn-admin-del" onclick="adminDeleteAd('${a.id}')">🗑️ Удалит кардани эълон</button>`:''}`;
+  document.getElementById('ovDetail').classList.add('open');
+}
+function detailSwap(el,src){
+  const main=document.getElementById('detMainImg');
+  if(main)main.src=src;
+  document.querySelectorAll('#ovDetail .gal .g').forEach(g=>g.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function reportAd(id){toast('Гузориш сабт шуд — ташкилотчӣ санҷиш мекунад 🚩');}
+
+/* ---------- ИКОН-И БАРНОМА: «Девори эълонҳо» (дар услути расими Owner) ---------- */
+const DOODLE_ICON=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<rect width="64" height="64" rx="14" fill="#2B3440"/>
+<g transform="rotate(7 47 19)">
+ <rect x="34" y="4" width="27" height="30" rx="4" fill="#FDE047"/>
+ <path d="M40 24 q4-7 9-7 t9 7 l-2.5 4.5 h-13 z" fill="#22C55E"/>
+ <circle cx="44" cy="29.5" r="3" fill="#1F2937"/><circle cx="53" cy="29.5" r="3" fill="#1F2937"/>
+ <path d="M40 10 h13 M40 14 h9" stroke="#1F2937" stroke-width="2.2" stroke-linecap="round"/>
+</g>
+<g transform="rotate(-8 16 19)">
+ <rect x="4" y="6" width="25" height="27" rx="4" fill="#60A5FA"/>
+ <rect x="12.5" y="11" width="9.5" height="16" rx="3" fill="#F9FAFB"/>
+ <circle cx="17.2" cy="23.5" r="1.6" fill="#60A5FA"/>
+ <path d="M9 38 h15" stroke="#1F2937" stroke-width="2.2" stroke-linecap="round"/>
+</g>
+<g transform="rotate(5 19 48)">
+ <rect x="6" y="36" width="27" height="24" rx="4" fill="#4ADE80"/>
+ <path d="M12 53 v-6.5 q0-3.5 3.5-3.5 h7.5 q3.5 0 3.5 3.5 V53 z" fill="#FDE047"/>
+ <rect x="11" y="53" width="5" height="3.4" rx="1.7" fill="#1F2937"/>
+ <rect x="20" y="53" width="5" height="3.4" rx="1.7" fill="#1F2937"/>
+ <path d="M11 41 h14" stroke="#14532D" stroke-width="2" stroke-linecap="round"/>
+</g>
+<g transform="rotate(-10 50 48)">
+ <rect x="37" y="36" width="24" height="24" rx="4" fill="#FB7185"/>
+ <path d="M43 50.5 l6-6 6 6 V57 h-12 z" fill="#F9FAFB"/>
+ <path d="M42 41 h11 M42 44 h8" stroke="#7F1D1D" stroke-width="2.2" stroke-linecap="round"/>
+</g>
+<g transform="rotate(4 32 33)">
+ <rect x="24" y="22" width="16" height="22" rx="3" fill="#F9FAFB" opacity=".95"/>
+ <path d="M27 27 h10 M27 31 h7 M27 35 h9 M27 39 h6" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+</g>
+</svg>`;
+
+/* ==========================================================================
+   SUPABASE INTEGRATION — «Девор» (Vanilla JS + REST, бе SDK)
+   Project URL + Publishable Key (RLS дар сервер ҳифз мекунад)
+   ========================================================================== */
+const SUPABASE = {
+  URL: "https://ayipukhoncivwqrutnml.supabase.co",
+  KEY: "sb_publishable_jPrCcmwVt4emID6NSY2KMQ_KD3RtcVS"
+};
+
+/* Тозакунии эълон: DELETE /rest/v1/listings?id=eq.{id} */
+async function sbDeleteListing(id) {
+  if (!SUPABASE.URL || !SUPABASE.KEY || !id) {
+    return false;
+  }
+  try {
+    const endpoint = `${SUPABASE.URL}/rest/v1/listings?id=eq.${encodeURIComponent(id)}`;
+    const response = await fetch(endpoint, {
+      method: "DELETE",
+      headers: {
+        "apikey": SUPABASE.KEY,
+        "Authorization": `Bearer ${SUPABASE.KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      }
+    });
+    if (!response.ok) {
+      console.warn(`sbDeleteListing: сервер ${response.status} — танҳо локалӣ хориҷ шуд`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn("sbDeleteListing: шабака дастрас нест — танҳо локалӣ хориҷ шуд", err);
+    return false;
+  }
+}
+
+/* Боркунии эълонҳо: GET /rest/v1/listings?select=* */
+async function sbFetchListings() {
+  if (!SUPABASE.URL || !SUPABASE.KEY) {
+    return [];
+  }
+  const base = `${SUPABASE.URL}/rest/v1/listings`;
+  const headers = {
+    "apikey": SUPABASE.KEY,
+    "Authorization": `Bearer ${SUPABASE.KEY}`
+  };
+  try {
+    let response = await fetch(`${base}?select=*&order=created_at.desc`, { headers });
+    if (!response.ok) {
+      response = await fetch(`${base}?select=*`, { headers });
+    }
+    if (!response.ok) {
+      console.warn(`sbFetchListings: сервер ${response.status}`);
+      return [];
+    }
+    const rows = await response.json();
+    return rows.map((row, i) => ({
+      id: String(row.id ?? `sb${i}`),
+      t: row.title ?? "Эълон",
+      cp: row.category_path ?? "Дигар",
+      sp: row.subtitle ?? "",
+      pr: (row.price === null || row.price === undefined) ? null : Number(row.price),
+      ic: row.icon ?? "📦",
+      g: row.gradient ?? "#A62626,#D94141",
+      st: (row.specs && typeof row.specs === "object") ? row.specs : {},
+      d: row.district ?? "",
+      ph: Array.isArray(row.photos) ? row.photos.length : 3,
+      photos: Array.isArray(row.photos) ? row.photos : null,
+      ex: !!row.exchange,
+      ur: !!row.urgent,
+      fr: row.price === null,
+      time: row.created_at ? new Date(row.created_at).toLocaleString("tg") : "ҳоло",
+      seller: row.seller_name ?? "Supabase",
+      sellerId: row.seller_id ?? row.seller_name ?? "seller",
+      tel: row.phone ?? row.tel ?? "",
+      desc: row.description ?? "",
+      city: row.city ?? "Душанбе"
+    }));
+  } catch (err) {
+    console.warn("sbFetchListings: шабака дастрас нест", err);
+    return [];
+  }
+}
+
+/* Нашри эълон: POST /rest/v1/listings (merge-duplicates = upsert) */
+async function sbUpsertListing(ad) {
+  if (!SUPABASE.URL || !SUPABASE.KEY || !ad) {
+    return false;
+  }
+  try {
+    const payload = {
+      id: ad.id,
+      title: ad.t,
+      category_path: ad.cp,
+      price: ad.pr,
+      district: ad.d,
+      city: ad.city,
+      description: ad.desc || "",
+      photos: Array.isArray(ad.photos) ? ad.photos : [],
+      specs: (ad.st && typeof ad.st === "object") ? ad.st : {},
+      exchange: !!ad.ex,
+      urgent: !!ad.ur,
+      icon: ad.ic,
+      phone: ad.tel || "",
+      seller_name: ad.seller,
+      created_at: new Date().toISOString()
+    };
+    const response = await fetch(`${SUPABASE.URL}/rest/v1/listings`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE.KEY,
+        "Authorization": `Bearer ${SUPABASE.KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates,return=minimal"
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      console.warn(`sbUpsertListing: сервер ${response.status}`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn("sbUpsertListing: шабака дастрас нест", err);
+    return false;
+  }
+}
+/* ---------- SUPER-ADMIN: One-Tap Ad Deletion ---------- */
+async function adminDeleteAd(id){
+  await sbDeleteListing(id); // Supabase listings table (агар конфиг шуда бошад)
+  S.ads=S.ads.filter(a=>a.id!==id);
+  S.myAds=S.myAds.filter(a=>a.id!==id);
+  S.bookmarks=S.bookmarks.filter(x=>x!==id);
+  S.recent=S.recent.filter(x=>x!==id);
+  S.chats=S.chats.filter(c=>c.adId!==id);
+  if(curChat&&!S.chats.find(c=>c===curChat))curChat=null;
+  save();
+  closeOv('ovDetail');
+  renderAll();updBadge();
+  if(document.getElementById('ovPanel').classList.contains('open'))renderPanel();
+  toast('Эълон удалит шуд');
+}
+function toggleBk(id){
+  const i=S.bookmarks.indexOf(id);
+  i<0?S.bookmarks.push(id):S.bookmarks.splice(i,1);
+  save();renderAll();
+  document.querySelectorAll('.heart').forEach(()=>{});
+  toast(i<0?'❤️ Нишоншуда ба «Девори ман» илова шуд':'Аз нишоншудаҳо хориҷ шуд');
+}
+
+/* ==================== CITY ==================== */
+let selCity=S.city;
+function openCity(){selCity=S.city;document.getElementById('cityQ').value='';renderCity();document.getElementById('ovCity').classList.add('open');}
+function renderCity(){
+  const q=(document.getElementById('cityQ').value||'').toLowerCase();
+  document.getElementById('cityList').innerHTML=SCHEMA.cities.map(c=>c.n).filter(c=>c.toLowerCase().includes(q))
+   .map(c=>`<button class="city-it ${c===selCity?'sel':''}" onclick="selCity='${esc(c)}';renderCity()">${esc(c)}</button>`).join('');
+}
+document.getElementById('ovCity')?.addEventListener('click',e=>{if(e.target.id==='ovCity'){S.city=selCity;document.getElementById('cityLbl').textContent=S.city;closeOv('ovCity');renderAll();}});
+
+/* ==================== POST WIZARD ==================== */
+let pw={step:0,cat:null,sub:null,free:false,neg:false,ex:false};
+function openPost(){pw={step:0,cat:null,sub:null,free:false,neg:false,ex:false,photos:[]};renderPost();document.getElementById('ovPost').classList.add('open');}
+function renderPost(){
+  const b=document.getElementById('postBody');
+  const steps=['Категория','Тафсилот','Тамос'];
+  const head=`<button class="m-close" onclick="closeOv('ovPost')">✕</button>
+   <div class="m-title">Сабти эълони ройгон — Қадами ${pw.step+1}/3: ${steps[pw.step]}</div>
+   <div style="display:flex;gap:4px;margin-bottom:14px">${steps.map((s,i)=>`<div style="flex:1;height:4px;border-radius:2px;background:${i<=pw.step?'var(--brand)':'var(--hair)'}"></div>`).join('')}</div>`;
+  if(pw.step===0){
+    b.innerHTML=head+SCHEMA.cats.filter(c=>!c.h).map(c=>`<div class="cat-item" style="border:1px solid var(--hair);margin-bottom:6px" onclick="pickSub('${esc(c.n)}')">
+      <span class="ic">${c.ic}</span><span style="font-weight:600">${esc(c.n)}</span><span class="cnt">›</span></div>`).join('');
+  } else if(pw.step===1){
+    b.innerHTML=head+`
+     <label style="font-size:12.5px;color:var(--text2)">Акси воқеӣ аз галерея — <b>ҳадди ақал 2 акс</b> (беplaceholder)</label>
+     <input id="pPhotos" type="file" accept="image/*" multiple onchange="onPhotosPicked(this)" style="margin:6px 0 4px;padding:8px">
+     <div id="phCount" style="font-size:12.5px;font-weight:700;color:${(pw.photos||[]).length>=2?'var(--success)':'var(--brand)'}">Аксҳо: ${(pw.photos||[]).length}/2 ${(pw.photos||[]).length>=2?'✅':'— ҳадди ақал 2 воқеӣ'}</div>
+     <div class="gal" style="margin:6px 0 12px">${(pw.photos||[]).map((src,i)=>`
+       <div class="g sel" style="position:relative;overflow:visible">
+         <img src="${src}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:4px;display:block">
+         <button class="ib dan" style="position:absolute;top:-6px;right:-6px;background:var(--brand);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:flex;align-items:center;justify-content:center" onclick="delPhoto(${i})">✕</button>
+       </div>`).join('')}
+       <label class="g" style="border:2px dashed var(--hair);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;text-align:center;line-height:1.3;cursor:pointer">+ Акс<br>аз галерея<input type="file" accept="image/*" multiple style="display:none" onchange="onPhotosPicked(this)"></label>
+     </div>
+     <input id="pTitle" maxlength="70" placeholder="Номи эълон (масалан: iPhone 13 128GB)" value="${pw.t?esc(pw.t):''}">
+     <div class="tog3">
+       <button class="${pw.free?'on':''}" onclick="pw.free=!pw.free;renderPost()">Ройгон</button>
+       <button class="${pw.neg?'on':''}" onclick="pw.neg=!pw.neg;renderPost()">Шартномавӣ</button>
+       <button class="${pw.ex?'on':''}" onclick="pw.ex=!pw.ex;renderPost()">Мубодила</button>
+     </div>
+     ${pw.free?'':`<input id="pPrice" type="number" placeholder="Нарх (с.)" value="${pw.pr||''}" style="margin-bottom:8px">`}
+     <div class="two">
+       <select id="pCity" onchange="pCityChanged()">${SCHEMA.cities.map(c=>`<option ${c.n===S.city?'selected':''}>${esc(c.n)}</option>`).join('')}</select>
+       <select id="pDist">${districtsFor(S.city).map(d=>`<option>${esc(d)}</option>`).join('')}</select>
+     </div>
+     <select id="pCond" style="margin-top:8px">${(fieldG('condition')||{v:['Нав','Дар ҳолати хуб','Истифодашуда']}).v.map(v=>`<option>${esc(v)}</option>`).join('')}</select>
+     ${isJobCat(pw.cat)?`
+     <div class="two" style="margin-top:8px">
+       <select id="pSched">${(fieldG('schedule')||{v:['Рӯзона']}).v.map(v=>`<option>${esc(v)}</option>`).join('')}</select>
+       <select id="pSeason">${(fieldG('season')||{v:['Солона']}).v.map(v=>`<option>${esc(v)}</option>`).join('')}</select>
+     </div>
+     <select id="pExp" style="margin-top:8px">${(fieldG('experience')||{v:['Дилхоҳ']}).v.map(v=>`<option>${esc(v)}</option>`).join('')}</select>`
+     :''}
+     ${SCHEMA.fields.filter(f=>f.k.startsWith('custom')).map(f=>`<input class="pCustom" data-t="${esc(f.t)}" placeholder="${esc(f.t)} (динамикӣ)" style="margin-top:8px">`).join('')}
+     <textarea id="pDesc" rows="4" maxlength="500" placeholder="Тавсифи муфассал..." style="margin-top:8px">${pw.desc?esc(pw.desc):''}</textarea>
+     <div class="wiz-nav"><button class="btn-out" onclick="pw.step--;renderPost()">Бозгашт</button><button class="btn-fill" onclick="pwStep2()" ${(pw.photos||[]).length>=2?'':'disabled style="opacity:.45"'}>Идома</button></div>`;
+  } else {
+    b.innerHTML=head+`
+     <label style="font-size:12.5px;color:var(--text2)">Рақами телефон (PII — дар UI маскал мешавад: ${maskPhone(pw.ph||'+9920000000')})</label>
+     <input id="pPhone" type="tel" placeholder="+992 XX XXX XX XX" autocomplete="off" value="${pw.ph?esc(pw.ph):''}" style="margin:8px 0">
+     <div class="priv-note">🛡️ <b>Ҳушдорҳои амниятӣ:</b> рақами телефон дар карточка ҳамчун ${maskPhone(pw.ph||'+9920000000')} нишон дода мешавад; OTP баъди тасдиқ 3 дақиқа пурра нест мешавад; маълумоти шахсӣ дар логҳо маскал мешаванд.</div>
+     <div class="free-note">✅ Нашри эълон 100% РОЙГОН аст — бе VIP, бе ТОР, бе пардохт.</div>
+     <div class="wiz-nav"><button class="btn-out" onclick="pw.step--;renderPost()">Бозгашт</button><button class="btn-fill" onclick="publish()" ${(pw.photos||[]).length>=2?'':'disabled style="opacity:.45"'}>Нашр кардан — Ройгон</button></div>`;
+  }
+}
+function pickSub(cn){
+  const c=SCHEMA.cats.find(x=>x.n===cn);
+  const b=document.getElementById('postBody');
+  b.innerHTML=`<button class="m-close" onclick="closeOv('ovPost')">✕</button>
+   <div class="m-title">${c.ic} ${esc(cn)}</div>`+
+   (c.ch||[]).filter(s=>!s.h).map(s=>`<div class="cat-item" style="border:1px solid var(--hair);margin-bottom:6px" onclick="pw.cat='${esc(cn)}';pw.sub='${esc(s.n)}';pw.step=1;renderPost()">• ${esc(s.n)}</div>`).join('')+
+   `<div class="wiz-nav"><button class="btn-out" onclick="pw.step=0;renderPost()">← Ҳамаи бандҳо</button></div>`;
+}
+function pCityChanged(){
+  const c=document.getElementById('pCity').value;
+  document.getElementById('pDist').innerHTML=districtsFor(c).map(x=>`<option>${esc(x)}</option>`).join('');
+}
+
+/* ---------- STRICT 2+ REAL GALLERY PHOTOS (append, compression, Supabase Storage) ---------- */
+function onPhotosPicked(input){
+  const files=[...input.files].filter(f=>f&&f.type&&f.type.startsWith('image/'));
+  // Reset — то ки интихоби дубории ҳамон файл(ҳо) change-ро дубора фаъол кунад
+  input.value='';
+  if(!files.length){renderPost();return;}
+  pw.photos=Array.isArray(pw.photos)?pw.photos:[]; // APPEND ба массиви ҷорӣ (на иваз)
+  let done=0;
+  files.forEach(f=>{
+    const slot=pw.photos.length; // ҷои нав дар охири массив
+    const r=new FileReader();
+    r.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        // Compression-и клиентӣ: max 800px, JPEG 0.72 — бе placeholder, танҳо файл-и воқеӣ
+        const max=800,sc=Math.min(1,max/Math.max(img.width,img.height));
+        const c=document.createElement('canvas');
+        c.width=Math.max(1,Math.round(img.width*sc));
+        c.height=Math.max(1,Math.round(img.height*sc));
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        pw.photos[slot]=c.toDataURL('image/jpeg',.72);
+        if(++done===files.length){pw.photos=pw.photos.filter(Boolean);renderPost();}
+      };
+      img.onerror=()=>{if(++done===files.length){pw.photos=pw.photos.filter(Boolean);renderPost();}};
+      img.src=e.target.result;
+    };
+    r.readAsDataURL(f);
+  });
+}
+function delPhoto(i){(pw.photos||[]).splice(i,1);renderPost();}
+async function sbUploadPhotos(adId){
+  // Supabase Storage: bucket 'ads-images' (агар URL/KEY конфиг шуда бошанд)
+  if(!SUPABASE.URL||!SUPABASE.KEY)return pw.photos; // офлайн — dataURL-и compressed локалӣ
+  const urls=[];
+  for(let i=0;i<pw.photos.length;i++){
+    const path=`${adId}/${i}.jpg`;
+    try{
+      const blob=await (await fetch(pw.photos[i])).blob();
+      await fetch(`${SUPABASE.URL}/storage/v1/object/ads-images/${path}`,{
+        method:'POST',
+        headers:{apikey:SUPABASE.KEY,Authorization:`Bearer ${SUPABASE.KEY}`,'Content-Type':'image/jpeg','x-upsert':'true'},
+        body:blob
+      });
+      urls.push(`${SUPABASE.URL}/storage/v1/object/public/ads-images/${path}`);
+    }catch(e){urls.push(pw.photos[i]);}
+  }
+  return urls;
+}
+function pwStep2(){
+  if((pw.photos||[]).length<2){toast('Лутфан ҳадди ақал 2 акси воқеӣ аз галерея илова кунед');return;}
+  pw.t=document.getElementById('pTitle').value.trim();
+  pw.pr=pw.free?null:parseInt(document.getElementById('pPrice')?.value||'0');
+  pw.city=document.getElementById('pCity').value;
+  pw.dist=document.getElementById('pDist').value;
+  pw.cond=document.getElementById('pCond').value;
+  pw.sched=document.getElementById('pSched')?.value||'';
+  pw.season=document.getElementById('pSeason')?.value||'';
+  pw.exp=document.getElementById('pExp')?.value||'';
+  pw.custom={};
+  document.querySelectorAll('.pCustom').forEach(el=>{if(el.value.trim())pw.custom[el.dataset.t]=el.value.trim();});
+  pw.desc=document.getElementById('pDesc').value.trim();
+  if(!pw.t){toast('Номи эълон ворид кунед');return;}
+  pw.step=2;renderPost();
+}
+async function publish(){
+  // STRICT: 0 ё 1 акс = нашр блокшуда (танҳо акси воқеӣ аз галерея)
+  if((pw.photos||[]).length<2){
+    toast('Лутфан ҳадди ақал 2 акси воқеӣ аз галерея илова кунед');
+    pw.step=1;renderPost();return;
+  }
+  pw.ph=document.getElementById('pPhone').value.trim();
+  if(!/^\+992\d{9}$/.test(pw.ph.replace(/[\s()-]/g,''))){toast('Рақами дурусти +992 ворид кунед');return;}
+  const adId='my'+Date.now();
+  const photoUrls=await sbUploadPhotos(adId);
+  const ad={id:adId,t:pw.t,cp:pw.cat+'/'+pw.sub,sp:pw.cond,pr:pw.pr,ic:pw.ic||'📦',
+    g:'#A62626,#D94141',
+    photos:photoUrls,
+    st:{'Ҳолат':pw.cond,'Шаҳр':pw.city,'Ноҳия':pw.dist,
+        ...(pw.sched?{'Реҷаи кор':pw.sched}:{}),
+        ...(pw.season?{'Фасли корӣ':pw.season}:{}),
+        ...(pw.exp?{'Таҷриба':pw.exp}:{}), ...pw.custom},
+    d:pw.dist,ph:photoUrls.length,tel:pw.ph,ex:pw.ex,ur:false,fr:pw.free,time:'Ҳоло',seller:'Девори ман',desc:pw.desc||'',city:pw.city};
+  ad.g='#A62626,#D94141';
+  ad.desc=pw.desc||'';
+  S.myAds.unshift(ad);save();
+  closeOv('ovPost');renderAll();window.scrollTo(0,0);
+  toast('Эълон нашр шуд — 100% Ройгон! ✅');
+  sbUpsertListing(ad); // ☁️ синхронизатсия бо Supabase (бе блок кардани UI)
+}
+
+/* ==================== SAVED / MY DEVOR ==================== */
+function openSaved(){
+  const all=()=>S.ads.concat(S.myAds);
+  const tab=S.savedTab||0;
+  const sec=(t,html)=>`<div style="font-weight:700;margin:14px 0 8px">${t}</div>${html}`;
+  document.getElementById('savedBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovSaved')">✕</button>
+   <div class="m-title">Девори ман</div>
+   <div class="tog3">${['Нишоншудаҳо','Эълонҳои ман','Дидашудаҳои охир'].map((t,i)=>`<button class="${i===tab?'on':''}" onclick="S.savedTab=${i};openSaved()">${t}</button>`).join('')}</div>
+   ${tab===0?sec('Нишоншудаҳо (Bookmarks)',S.bookmarks.length?S.bookmarks.map(id=>{const a=all().find(x=>x.id===id);return a?rowAd(a):''}).join(''):'<div class="empty">Ҳанӯз чиз нишон нашудааст</div>'):''}
+   ${tab===1?sec('Эълонҳои ман — нашри ройгон',S.myAds.length?S.myAds.map(a=>`${rowAd(a)}<button class="btn-out" style="width:100%;margin-top:4px;padding:8px;font-size:12px" onclick="delMy('${a.id}')">🗑 Хориҷ кардан</button>`).join(''):'<div class="empty">Ҳанӯз эълон нашр накардаед</div>'):''}
+   ${tab===2?sec('Дидашудаҳои охир',S.recent.length?S.recent.map(id=>{const a=all().find(x=>x.id===id);return a?rowAd(a):''}).join(''):'<div class="empty">Таърих холист</div>'):''}
+   <div class="foot">Созанда: Хайдарзода (Haydarzoda) • 100% Ройгон</div>`;
+  document.getElementById('ovSaved').classList.add('open');
+}
+function rowAd(a){
+  const [c1,c2]=a.g.split(',');
+  return `<div class="ad-card" style="margin-bottom:8px" onclick="closeOv('ovSaved');openDetail('${a.id}')">
+    <div class="ad-l"><div class="ad-t">${esc(a.t)}</div><div class="ad-p ${a.pr===null?'free':''}">${fmt(a.pr)}</div></div>
+    <div style="width:64px;height:64px;flex-shrink:0;border-radius:4px;overflow:hidden;font-size:26px" class="thumb" onclick="event.stopPropagation();">${a.ic}</div></div>`;
+}
+function delMy(id){S.myAds=S.myAds.filter(a=>a.id!==id);save();openSaved();renderAll();toast('Эълон хориҷ шуд');}
+
+/* ==================== ЧАТИ ВОҚЕӢ (Supabase messages + polling) ==================== */
+let curChat=null;
+function myUid(){
+  let u=localStorage.getItem('dv_uid');
+  if(!u){u='u'+Math.random().toString(36).slice(2,10);localStorage.setItem('dv_uid',u);}
+  return u;
+}
+async function sbFetchMessages(adId){
+  if(!SUPABASE.URL||!SUPABASE.KEY||!adId)return null;
+  try{
+    const url=`${SUPABASE.URL}/rest/v1/messages?ad_id=eq.${encodeURIComponent(adId)}&order=created_at.asc`;
+    const r=await fetch(url,{headers:{"apikey":SUPABASE.KEY,"Authorization":`Bearer ${SUPABASE.KEY}`}});
+    if(!r.ok)return null;
+    return await r.json();
+  }catch(e){return null;}
+}
+async function sbSendMessage(adId,text,receiverId){
+  if(!SUPABASE.URL||!SUPABASE.KEY)return false;
+  try{
+    const row={ad_id:adId,sender_id:myUid(),receiver_id:receiverId||'seller',text:text};
+    const r=await fetch(`${SUPABASE.URL}/rest/v1/messages`,{
+      method:'POST',
+      headers:{"apikey":SUPABASE.KEY,"Authorization":`Bearer ${SUPABASE.KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify(row)
+    });
+    return r.ok;
+  }catch(e){return false;}
+}
+function renderChatMessages(c){
+  const box=document.getElementById('chatMsgs');
+  if(!box)return;
+  box.innerHTML=c.msgs.map(m=>`<div class="msg ${m.me?'me':'them'}">${esc(m.txt)}</div>`).join('');
+  box.scrollTop=box.scrollHeight;
+}
+async function loadChatMessages(c,notify){
+  const uid=myUid();
+  const rows=await sbFetchMessages(c.adId);
+  if(!Array.isArray(rows))return;
+  const first=c.rawCount===undefined;
+  const fresh=first?[]:rows.slice(c.rawCount||0);
+  c.rawCount=rows.length;
+  c.msgs=rows.map(r=>({me:String(r.sender_id)===uid,txt:String(r.text??'')}));
+  save();
+  const incoming=fresh.filter(r=>String(r.sender_id)!==uid).length;
+  const open=document.getElementById('ovChat').classList.contains('open')&&curChat===c;
+  if(open){renderChatMessages(c);c.unread=0;save();updBadge();}
+  else if(!first&&incoming>0&&notify){
+    c.unread=(c.unread||0)+incoming;
+    save();updBadge();
+    toast('Паёми нав 💬');
+  }
+}
+function pollChats(){
+  if(!SUPABASE.URL||!SUPABASE.KEY||!S.chats.length)return;
+  const open=document.getElementById('ovChat').classList.contains('open');
+  if(open&&curChat){loadChatMessages(curChat,true);return;}
+  S.chats.slice(0,10).forEach(c=>{loadChatMessages(c,true);});
+}
+function openChat(){
+  const b=document.getElementById('chatBody');
+  if(!S.chats.length){b.innerHTML=`<button class="m-close" onclick="closeOv('ovChat')">✕</button><div class="empty"><div style="font-size:44px">💬</div>Ҳанӯз гуфтугӯй нест<br><small>Дар эълон тугмаи «Чат»-ро пахш кунед</small></div>`;}
+  else{
+    const c=curChat||S.chats[0];c.unread=0;save();updBadge();
+    // Барои эълони ройгон саволи «Нархи охираш чанд?» маъни надорад
+    const chips=QUICK.filter(q=>!(c.pr===null&&q.indexOf('Нархи')===0));
+    b.innerHTML=`<button class="m-close" onclick="closeOv('ovChat')">✕</button>
+     <div class="m-title">Чат <span style="font-size:11.5px;color:var(--muted)">• воқеӣ тавассути Supabase</span></div>
+     <div class="chat-split">
+       <div class="chat-list">${S.chats.map((c2,i)=>`<div class="chat-it ${c2===c?'sel':''}" onclick="curChat=S.chats[${i}];loadChatMessages(curChat,false);openChat()">
+         <div style="font-size:24px">${c2.ic}</div><div><b style="font-size:13px">${esc(c2.seller)}</b><div style="color:var(--muted);font-size:11.5px">${esc(c2.t.slice(0,26))}</div></div>
+         ${c2.unread?`<span class="un">${c2.unread}</span>`:''}</div>`).join('')}</div>
+       <div class="chat-msgs">
+         <div class="chat-h">🧵 <b>${esc(c.t)}</b> <span style="color:var(--muted);font-size:12px">• ${fmt(c.pr)}</span></div>
+         <div class="chat-b" id="chatMsgs"></div>
+         <div class="qchips">${chips.map(q=>`<button onclick="sendMsg('${esc(q)}')">${esc(q)}</button>`).join('')}</div>
+         <div class="chat-in"><input id="msgIn" placeholder="Паём нависед..." onkeydown="if(event.key==='Enter')sendMsg(this.value)">
+           <button class="btn-fill" style="padding:10px 16px" onclick="sendMsg(document.getElementById('msgIn').value)">➤</button></div>
+       </div>
+     </div>`;
+    renderChatMessages(c);
+  }
+  document.getElementById('ovChat').classList.add('open');
+}
+async function openChatWith(adId){
+  const a=S.ads.concat(S.myAds).find(x=>x.id===adId);if(!a)return;
+  let c=S.chats.find(x=>x.adId===adId);
+  if(!c){
+    c={adId:adId,t:a.t,pr:a.pr,ic:a.ic,seller:a.seller,receiverId:a.sellerId||a.seller||'seller',unread:0,msgs:[],rawCount:0};
+    S.chats.unshift(c);save();
+  }
+  c.receiverId=a.sellerId||c.receiverId||a.seller||'seller';
+  curChat=c;
+  openChat();
+  await loadChatMessages(c,false);
+}
+async function sendMsg(txt){
+  if(!txt||!txt.trim()||!curChat)return;
+  const text=txt.trim();
+  const input=document.getElementById('msgIn');
+  if(input)input.value='';
+  const ok=await sbSendMessage(curChat.adId,text,curChat.receiverId);
+  curChat.msgs.push({me:true,txt:text});
+  if(ok)curChat.rawCount=(curChat.rawCount||0)+1;
+  save();
+  if(document.getElementById('ovChat').classList.contains('open'))renderChatMessages(curChat);
+  if(!ok)toast('Паём локалӣ нигоҳ дошта шуд — сервер дастрас нест');
+}
+function updBadge(){
+  const u=S.chats.reduce((s,c)=>s+(c.unread||0),0);
+  const b=document.getElementById('chatBadge');
+  b.style.display=u?'flex':'none';b.textContent=u;
+}
+
+/* ==================== SUPPORT ==================== */
+function openSupport(){
+  document.getElementById('supportBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovSupport')">✕</button>
+   <div class="m-title">Дастгирӣ ва амният</div>
+   <div class="safety"><b>🛡️ Қоидаҳои амнияти «Девор»</b><br>
+     • Ҳеҷ гоҳ пешакӣ пул насозед.<br>• Молро дар ҷой санҷед.<br>• Дар ҷои ҷамъиятӣ вохӯрӣ кунед.<br>
+     • Рақами картина/маълумоти bank-и худ диҳед НЕМОНОМАНД.<br>• Гумонбарӣ → 🚩 Гузориш.</div>
+   <div style="font-weight:700;margin:16px 0 8px">Саволҳои маъмул</div>
+   <div class="cat-item">❓ Нашри эълон чанд аст? — <b>0 с., 100% Ройгон</b>, бе VIP ва бе ТОР.</div>
+   <div class="cat-item">❓ Чӣ тавр эълонро таҳрир мекунам? — «Девори ман → Эълонҳои ман».</div>
+   <div class="cat-item">❓ Чӣ тавр гузориш медиҳам? — Дар саҳифаи эълон тугмаи 🚩.</div>
+   <div class="foot">Девор v1.0 • Созанда: Хайдарзода (Haydarzoda) • 100% Ройгон</div>`;
+  document.getElementById('ovSupport').classList.add('open');
+}
+
+/* ==================== THEME / MISC ==================== */
+function toggleTheme(){
+  S.theme=S.theme==='light'?'dark':'light';
+  document.body.dataset.theme=S.theme;
+  document.getElementById('themeBtn').textContent=S.theme==='light'?'🌙':'☀️';
+  save();
+}
+function closeOv(id){document.getElementById(id).classList.remove('open');}
+// Терминатсияи фаврии сессияи админ — ҳангоми пӯшидани Панел (backdrop/Escape)
+function adminClosed(){if(window.adminSession){window.adminSession=false;toast('Сессияи админ terminate шуд 🔒');}}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o&&o.id!=='ovCity'){o.classList.remove('open');if(o.id==='ovPanel')adminClosed();}}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ov.open').forEach(o=>{o.classList.remove('open');if(o.id==='ovPanel')adminClosed();});});
+function mobileTab(i){['mt0','mt1','mt2','mt3','mt4'].forEach((id,j)=>document.getElementById(id).classList.toggle('on',j===i));if(i===0){document.getElementById('aside').classList.remove('open');}}
+
+/* ==========================================================================
+   UNLIMITED LIVE SCHEMA BUILDER + SUPER-ADMIN GATE (Zero-Exposure Owner Credentials)
+   — 5-tap дар логотип → Танзими аввалини Owner (SHA-256+salt) → Панели пурра
+   ========================================================================== */
+
+/* ---------- SCHEMA (persist дар localStorage, Firestore-ready JSON) ---------- */
+function defaultSchema(){
+  return {
+    version:1, applied:1, lastPub:null,
+    cities:[
+      {n:'Душанбе',d:['Исмоили Сомонӣ','Сино','Фирдавсӣ','Шоҳмансур','Марказ','33 мкр','82 мкр','Зарафшон','Садбарг','Профсоюз']},
+      {n:'Хуҷанд',d:['Хуҷанд-марказ']},{n:'Бохтар',d:['Бохтар-марказ']},
+      {n:'Кӯлоб',d:['Марказ']},{n:'Истаравшан',d:['Марказ']},{n:'Ваҳдат',d:['Марказ']},
+      {n:'Ҳисор',d:['Марказ']},{n:'Турсунзода',d:['Марказ']},{n:'Панҷакент',d:['Марказ']},
+      {n:'Исфара',d:['Марказ']},{n:'Конибодом',d:['Марказ']},{n:'Хоруғ',d:['Марказ']},
+      {n:'Рашт',d:['Марказ']},{n:'Муғоб',d:['Марказ']},{n:'Ҳамаи Тоҷикистон',d:[]}
+    ],
+    cats:JSON.parse(JSON.stringify(CATS)),
+    fields:[
+      {k:'season',t:'Фасли корӣ',v:['Баҳорӣ','Тобистона','Тирамоҳӣ','Зимистона','Солона','Мавсимӣ']},
+      {k:'schedule',t:'Реҷаи кор',v:['Рӯзона','Реҷаи озод','Мавсимӣ, тақвимӣ','Фосилавӣ','Якҷоякунӣ','Шабона','Берун аз ҷойи истиқомат','Муваққатӣ']},
+      {k:'experience',t:'Таҷриба',v:['Дилхоҳ','Бе таҷриба','аз 1 сол','аз 3 сол','аз 5 сол']},
+      {k:'condition',t:'Ҳолат',v:['Нав','Дар ҳолати хуб','Истифодашуда','Барои қисмҳои эҳтиётӣ']}
+    ],
+    visual:{app:'Девор',slogan:'Бозори ройгони эълонҳои Тоҷикистон',brand:'#A62626',accent:'#1B873F',logoStyle:0,banners:[]}
+  };
+}
+let SCHEMA;
+try{SCHEMA=JSON.parse(localStorage.getItem('dv_schema')||'null')||defaultSchema();}catch(e){SCHEMA=defaultSchema();}
+function saveSchema(){localStorage.setItem('dv_schema',JSON.stringify(SCHEMA));}
+function districtsFor(cn){
+  if(cn==='Ҳамаи Тоҷикистон'){const s=new Set();SCHEMA.cities.forEach(x=>x.d.forEach(d=>s.add(d)));return [...s];}
+  const c=SCHEMA.cities.find(x=>x.n===cn);return c?c.d:[];
+}
+function fieldG(k){return SCHEMA.fields.find(f=>f.k===k);}
+/* Бандҳои корӣ — танҳо барои онҳо Реҷаи кор / Фасли корӣ / Таҷриба нишон дода мешаванд */
+function isJobCat(c){return !!c&&(c.startsWith('Ҷои кор')||c.startsWith('Хизматрасониҳо'));}
+function hexToRgb(h){const x=h.replace('#','');return [parseInt(x.slice(0,2),16),parseInt(x.slice(2,4),16),parseInt(x.slice(4,6),16)];}
+
+function applyVisual(){
+  const v=SCHEMA.visual,[r,g,b]=hexToRgb(v.brand),rs=document.documentElement.style;
+  rs.setProperty('--brand',v.brand);
+  rs.setProperty('--brand-h',v.brand);
+  rs.setProperty('--brand-tint',`rgba(${r},${g},${b},.08)`);
+  const emb=document.getElementById('logoEmblem');
+  if(emb)emb.innerHTML=DOODLE_ICON;
+  const nm=document.getElementById('logoName');
+  if(nm)nm.textContent=v.app;
+  document.title=v.app+' — Бозори ройгони эълонҳои Тоҷикистон';
+}
+function renderBannerRow(){
+  const el=document.getElementById('bannerRow'),bs=SCHEMA.visual.banners;
+  el.style.display=bs.length?'flex':'none';
+  el.innerHTML=bs.map(b=>`<div class="bannerCard" style="background:linear-gradient(135deg,${b.c},${b.c}cc)">
+    <span style="font-size:22px">${b.ic}</span><span>${esc(b.t)}${b.s?`<small>${esc(b.s)}</small>`:''}</span></div>`).join('');
+}
+function applyLive(){
+  if(!SCHEMA.cities.find(c=>c.n===S.city)&&SCHEMA.cities.length){S.city=SCHEMA.cities[0].n;document.getElementById('cityLbl').textContent=S.city;}
+  renderAll();
+}
+// renderAll-и васеъ: + banner-ҳо
+const _renderAllBase=renderAll;
+renderAll=function(){_renderAllBase();renderBannerRow();};
+
+/* ---------- OTA: «Навсозии нав баромад! • Насб кардан» ---------- */
+function checkOta(){
+  const el=document.getElementById('otaBanner');
+  const pend=SCHEMA.version>SCHEMA.applied;
+  el.style.display=pend?'flex':'none';
+  if(pend)document.getElementById('otaTxt').textContent=`Навсозии нав баромад! v${SCHEMA.version} — шаҳрҳо, бандҳо ва филтрҳои нав`;
+}
+function applyOta(){SCHEMA.applied=SCHEMA.version;saveSchema();checkOta();renderAll();toast(`Schema v${SCHEMA.version} насб шуд ✅`);}
+
+/* ---------- 5-TAP SECRET GATE ---------- */
+var adminSession=false;
+let tapCount=0,tapTimer=null;
+function logoTap(){
+  clearTimeout(tapTimer);
+  tapTimer=setTimeout(()=>{tapCount=0;renderLogoDots();},2500);
+  tapCount++;renderLogoDots();
+  if(tapCount>=5){tapCount=0;renderLogoDots();openAdminGate();}
+}
+function renderLogoDots(){
+  const el=document.getElementById('tapDots');
+  if(el)el.innerHTML=tapCount>0?`<span class="tapdots">${'●'.repeat(tapCount)}</span>`:'';
+}
+
+/* ---------- ZERO-EXPOSURE OWNER CREDENTIALS (SHA-256 + salt) ---------- */
+const ADMIN_KEY='dv_admin',LOCK_KEY='dv_admin_lock';
+function getAdmin(){try{return JSON.parse(localStorage.getItem(ADMIN_KEY)||'null');}catch(e){return null;}}
+function lockInfo(){try{return JSON.parse(localStorage.getItem(LOCK_KEY)||'null');}catch(e){return null;}}
+async function sha256Hex(str){
+  const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function randSalt(){const a=new Uint8Array(32);crypto.getRandomValues(a);return btoa(String.fromCharCode(...a));}
+const hashWithSalt=(salt,secret)=>sha256Hex(salt+':'+secret);
+
+function openAdminGate(){
+  getAdmin()?renderAdminLogin():renderAdminSetup();
+  document.getElementById('ovAdmin').classList.add('open');
+}
+function renderAdminSetup(){
+  document.getElementById('adminBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovAdmin')">✕</button>
+   <div class="m-title">🔐 Танзими аввалини Owner</div>
+   <div class="adm-note">Салом, соҳиби барнома! Мухтасасҳои Супер-Админ ҳанӯз танзим нашудаанд.
+     Логин ва Пароли СИРРИИ худро ворид кунед — онҳо фавран бо <b>SHA-256 + salt</b> hash мешаванд,
+     дар хазина танҳо hash мемонад ва <b>ҲЕҶ ГОҲ дар барнома намоиш дода НАМЕШАВАНД</b>.</div>
+   <input id="aLogin" placeholder="Логин (≥4 аломат)" autocomplete="off" style="margin-bottom:8px">
+   <input id="aPass" type="password" placeholder="Парол (≥8 аломат)" autocomplete="new-password" style="margin-bottom:8px">
+   <input id="aPass2" type="password" placeholder="Тасдиқи парол" autocomplete="new-password" style="margin-bottom:10px">
+   <button class="btn-fill" style="width:100%;padding:12px;font-weight:700" onclick="adminSetup()">Эҷод кардан</button>`;
+}
+async function adminSetup(){
+  const l=document.getElementById('aLogin').value.trim();
+  const p=document.getElementById('aPass').value,p2=document.getElementById('aPass2').value;
+  if(l.length<4){toast('Логин ҳадди ақал 4 аломат');return;}
+  if(p.length<8){toast('Парол ҳадди ақал 8 аломат');return;}
+  if(p!==p2){toast('Паролҳо мувофиқ нестанд');return;}
+  const salt=randSalt();
+  localStorage.setItem(ADMIN_KEY,JSON.stringify({
+    s:salt,l:await hashWithSalt(salt,l.toLowerCase()),p:await hashWithSalt(salt,p)
+  }));
+  document.getElementById('aPass').value='';document.getElementById('aPass2').value='';
+  toast('Супер-Админ танзим шуд ✅ Акнун ворид шавед');
+  renderAdminLogin();
+}
+let admFails=0,lockT=null;
+function renderAdminLogin(){
+  const li=lockInfo(),locked=li&&li.until>Date.now();
+  document.getElementById('adminBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovAdmin')">✕</button>
+   <div class="m-title">🔐 Вуруди Супер-Админ</div>
+   ${locked?`<div class="lock-note">🔒 ҚУЛФ ШУД (Brute-Force): <span id="lockTxt"></span> интизор шавед</div>`:''}
+   <input id="aLogin" placeholder="Логин" autocomplete="off" style="margin-bottom:8px">
+   <input id="aPass" type="password" placeholder="Парол" autocomplete="current-password" style="margin-bottom:10px">
+   <button class="btn-fill" style="width:100%;padding:12px;font-weight:700" onclick="adminLogin()" ${locked?'disabled style="opacity:.5"':''}>Ворид шавед</button>
+   <div class="adm-note">Мухтасасҳо ҳеҷ гоҳ намоиш дода намешаванд — танҳо Owner медонад. 3 кӯшиши нодуруст = Қулф 15 дақиқа (экспоненсиалӣ).</div>`;
+  if(locked){
+    clearInterval(lockT);
+    lockT=setInterval(()=>{
+      const l2=lockInfo();
+      if(!l2||l2.until<=Date.now()){clearInterval(lockT);renderAdminLogin();}
+      else{const el=document.getElementById('lockTxt');
+        if(el){const s=Math.ceil((l2.until-Date.now())/1000);el.textContent=`${Math.floor(s/60)}д ${s%60}с`;}}
+    },1000);
+  }
+}
+async function adminLogin(){
+  const li=lockInfo();
+  if(li&&li.until>Date.now()){toast('Қулф шуд — интизор шавед');return;}
+  const st=getAdmin();if(!st){renderAdminSetup();return;}
+  const l=document.getElementById('aLogin').value.trim().toLowerCase();
+  const p=document.getElementById('aPass').value;
+  const okL=await hashWithSalt(st.s,l)===st.l, okP=await hashWithSalt(st.s,p)===st.p;
+  if(okL&&okP){
+    admFails=0;localStorage.removeItem(LOCK_KEY);
+    document.getElementById('aPass').value='';
+    adminSession=true;
+    closeOv('ovAdmin');
+    PSEC=0;APATH=[];
+    renderPanel();
+    document.getElementById('ovPanel').classList.add('open');
+    toast('Хуш омадед, Супер-Админ! 🔐');
+  }else{
+    admFails++;
+    document.getElementById('aPass').value='';
+    if(admFails>=3){
+      const mins=15*Math.pow(2,admFails-3);
+      localStorage.setItem(LOCK_KEY,JSON.stringify({until:Date.now()+mins*60000}));
+      toast(`ҚУЛФ ШУД! ${mins} дақиқа интизор шавед 🔒`);
+    }else{
+      toast(`Логин ё парол нодуруст — кӯшиши ${admFails}/3`);
+    }
+    renderAdminLogin();
+  }
+}
+
+/* ---------- ПАНЕЛИ СУПЕР-АДМИН (Full CRUD) ---------- */
+let PSEC=0,APATH=[];
+function closeAdminPanel(){adminSession=false;closeOv('ovPanel');toast('Сессияи админ terminate шуд 🔒');}
+function renderPanel(){
+  const tabs=['📍 Шаҳрҳо','▦ Бандҳо','🕐 Реҷа/Фасл','🎨 Тамошӣ','🗂 Эълонҳо','🚀 Нашр'];
+  document.getElementById('panelBody').innerHTML=`
+   <button class="m-close" onclick="closeAdminPanel()">✕</button>
+   <div class="m-title">Панели Супер-Админ <span style="font-size:12px;color:var(--success)">• Session: FAЪОЛ</span></div>
+   <div class="panel-tabs">${tabs.map((t,i)=>`<button class="${i===PSEC?'on':''}" onclick="PSEC=${i};renderPanel()">${t}</button>`).join('')}</div>
+   <div style="max-height:60vh;overflow-y:auto">${[panelCities,panelCats,panelFields,panelVisual,panelAds,panelPublish][PSEC]()}</div>`;
+}
+
+/* ----- MODERATSIYA: МЕНЕДЖЕРИ ЭЪЛОНҲО (Super-Admin one-tap delete) ----- */
+function panelAds(){
+  const all=S.ads.concat(S.myAds);
+  return `<div class="adm-note">Модератсия: ҳамаи эълонҳо (${all.length}) — хориҷкунии фаврӣ аз ҳолат, localStorage ва Supabase listings.</div>
+   <div style="max-height:52vh;overflow-y:auto">
+   ${all.map(a=>`
+   <div class="adm-row">
+     <span style="font-size:16px">${a.ic}</span>
+     <span class="grow">${esc(a.t)}<small style="color:var(--muted)"> • ${fmt(a.pr)} • ${esc(a.d)}</small></span>
+     <button class="ib" title="Дидан" onclick="closeOv('ovPanel');openDetail('${a.id}')">👁</button>
+     <button class="ib dan" title="Удалит кардани эълон" onclick="adminDeleteAd('${a.id}').then(renderPanel)">🗑</button>
+   </div>`).join('')||'<div class="adm-note">Эълоне нест</div>'}
+   </div>`;
+}
+
+/* ----- 1. ШАҲРҲО ВА МАҲАЛЛАҲО ----- */
+function panelCities(){
+  return `<div class="adm-note">Шаҳрҳо (${SCHEMA.cities.length}) ва маҳаллаҳо — бемаҳдуд. Фавран дар City Selector, филтрҳо ва формаи эълон иҷро мешаванд.</div>
+   <div class="adm-row"><input id="ncCity" placeholder="Номи шаҳри нав..." class="grow"><button class="ib" onclick="addSC()">➕</button></div>
+   ${SCHEMA.cities.map((c,i)=>`
+   <details style="border:1px solid var(--hair);border-radius:6px;margin:8px 0;padding:6px 10px">
+     <summary style="font-weight:600;cursor:pointer">📍 ${esc(c.n)} <small style="color:var(--muted)">(${c.d.length} маҳалла)</small></summary>
+     ${c.d.map((d,j)=>`<div class="adm-row"><span class="grow">${esc(d)}</span>
+       <button class="ib" onclick="renD(${i},${j})">✏️</button>
+       <button class="ib dan" onclick="delD(${i},${j})">🗑</button></div>`).join('')||'<div class="adm-note">Маҳалла нест</div>'}
+     <div class="adm-row"><input id="nd_${i}" placeholder="Маҳаллаи нав..." class="grow" onkeydown="if(event.key==='Enter')addD(${i})"><button class="ib" onclick="addD(${i})">➕</button></div>
+     <div style="display:flex;gap:6px;margin-top:8px">
+       <button class="ib" onclick="renC(${i})">✏️ Тағйири шаҳр</button>
+       <button class="ib dan" onclick="delC(${i})">🗑 Хориҷи шаҳр</button>
+     </div>
+   </details>`).join('')}`;
+}
+function addSC(){const el=document.getElementById('ncCity');const v=el.value.trim();if(!v)return;SCHEMA.cities.push({n:v,d:[]});saveSchema();renderPanel();applyLive();toast('Шаҳр илова шуд ✅');}
+async function renC(i){const v=await askText('Тағйири шаҳр',SCHEMA.cities[i].n);if(v){SCHEMA.cities[i].n=v;saveSchema();renderPanel();applyLive();}}
+function delC(i){SCHEMA.cities.splice(i,1);saveSchema();renderPanel();applyLive();}
+function addD(i){const el=document.getElementById('nd_'+i);const v=el.value.trim();if(!v)return;SCHEMA.cities[i].d.push(v);saveSchema();renderPanel();applyLive();toast('Маҳалла илова шуд ✅');}
+async function renD(i,j){const v=await askText('Тағйири маҳалла',SCHEMA.cities[i].d[j]);if(v){SCHEMA.cities[i].d[j]=v;saveSchema();renderPanel();applyLive();}}
+function delD(i,j){SCHEMA.cities[i].d.splice(j,1);saveSchema();renderPanel();applyLive();}
+
+/* ----- 2. БАНДҲО / ЗЕРБАНДҲО / БРЕНДҲО ----- */
+function catSib(){return APATH.length?APATH[APATH.length-1].ch:SCHEMA.cats;}
+function panelCats(){
+  const sib=catSib();
+  return `<div class="adm-note">${APATH.length?'↩︎ '+esc(APATH.map(x=>x.n).join(' → ')):'Бандҳои асосӣ'} — бемаҳдуд: иконка, ранг, sort, hide, delete. Эълонҳо аз тағйирот бетаъсир monда мешаванд.</div>
+   <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+     ${APATH.length?'<button class="ib" onclick="APATH.pop();renderPanel()">← Бозгашт</button>':''}
+     <button class="ib" onclick="addCatDlg()">➕ ${APATH.length?'Зербанди нав':'Банди нав'}</button>
+   </div>
+   ${sib.map((n,i)=>`
+   <div class="adm-row">
+     <span style="font-size:17px;opacity:${n.h?'.4':'1'}">${n.ic||'•'}</span>
+     <span class="grow" style="${n.h?'text-decoration:line-through;color:var(--muted)':''}">${esc(n.n)} <small style="color:var(--muted)">(${(n.ch||[]).length})</small></span>
+     <button class="ib" title="Ба боло" onclick="moveN(${i},-1)">↑</button>
+     <button class="ib" title="Ба поён" onclick="moveN(${i},1)">↓</button>
+     <button class="ib" title="Пинҳон/Нишон" onclick="hideN(${i})">${n.h?'👁':'🙈'}</button>
+     <button class="ib" title="Тағйири ном" onclick="renN(${i})">✏️</button>
+     <button class="ib" title="Иконка ва ранг" onclick="styleN(${i})">🎨</button>
+     ${(n.ch&&n.ch.length)?`<button class="ib" title="Даромадан" onclick="APATH.push(catSib()[${i}]);renderPanel()">⤵️</button>`:''}
+     <button class="ib" title="Зербанди нав" onclick="addSubN(${i})">➕</button>
+     <button class="ib dan" title="Хориҷ кардан" onclick="delN(${i})">🗑</button>
+   </div>`).join('')}`;
+}
+function moveN(i,delta){const sib=catSib(),j=i+delta;if(j<0||j>=sib.length)return;const [n]=sib.splice(i,1);sib.splice(j,0,n);saveSchema();renderPanel();applyLive();}
+function hideN(i){const n=catSib()[i];n.h=!n.h;saveSchema();renderPanel();applyLive();}
+async function renN(i){const n=catSib()[i];const v=await askText('Тағйири ном',n.n);if(v){n.n=v;saveSchema();renderPanel();applyLive();}}
+async function addSubN(i){const n=catSib()[i];const v=await askText(`Зербанди нав дар «${n.n}»`);if(v){n.ch=n.ch||[];n.ch.push({n:v});saveSchema();renderPanel();applyLive();}}
+function delN(i){catSib().splice(i,1);saveSchema();renderPanel();applyLive();toast('Хориҷ шуд (эълонҳо бетаъсир)');}
+async function addCatDlg(){
+  const name=await askText(APATH.length?'Номи зербанд':'Номи банди нав');
+  if(!name)return;
+  if(APATH.length){const p=APATH[APATH.length-1];p.ch=p.ch||[];p.ch.push({n:name});}
+  else{
+    const st=await askNodeStyle();if(!st)return;
+    SCHEMA.cats.push({n:name,ic:st.ic,c:st.co,ch:[]});
+  }
+  saveSchema();renderPanel();applyLive();toast('Илова шуд ✅');
+}
+async function styleN(i){
+  const n=catSib()[i],st=await askNodeStyle(n.ic,n.c);
+  if(st){n.ic=st.ic;n.c=st.co;saveSchema();renderPanel();applyLive();}
+}
+const ADMIN_ICONS=['📦','🏠','🚗','📱','💻','🧸','👗','📺','🛋️','🔨','🎸','🐾','🛠️','🏬','🎁','🏢','💼','⭐','🎧','🚕','🌿','📚','🍕','⚽'];
+const ADMIN_COLORS=['#A62626','#D94141','#1B873F','#1565C0','#6A1B9A','#E65100','#00838F','#37474F'];
+function askNodeStyle(curIc,curCo){
+  return new Promise(res=>{
+    let ic=curIc&&ADMIN_ICONS.includes(curIc)?curIc:ADMIN_ICONS[0];
+    let co=curCo&&ADMIN_COLORS.includes(curCo)?curCo:ADMIN_COLORS[0];
+    const ov=document.createElement('div');ov.className='ov open';ov.style.zIndex='600';
+    ov.innerHTML=`<div class="modal" style="max-width:440px">
+      <div class="m-title">🎨 Иконка ва ранг</div>
+      <div class="sw">${ADMIN_ICONS.map(x=>`<button class="emb" style="width:40px;height:40px;font-size:18px;${ic===x?'border-color:var(--text)':''}" data-ic="${x}">${x}</button>`).join('')}</div>
+      <div class="sw">${ADMIN_COLORS.map(c=>`<button class="swb" style="background:${c};${co===c?'border-color:var(--text)':''}" data-co="${c}"></button>`).join('')}</div>
+      <div class="wiz-nav"><button class="btn-out" id="stNo">Бекор</button><button class="btn-fill" id="stOk">OK</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-ic]').forEach(b=>b.onclick=()=>{ic=b.dataset.ic;ov.querySelectorAll('[data-ic]').forEach(x=>x.style.borderColor=x===b?'var(--text)':'transparent');});
+    ov.querySelectorAll('[data-co]').forEach(b=>b.onclick=()=>{co=b.dataset.co;ov.querySelectorAll('[data-co]').forEach(x=>x.style.borderColor=x===b?'var(--text)':'transparent');});
+    const done=v=>{ov.remove();res(v);};
+    ov.querySelector('#stOk').onclick=()=>done({ic,co});
+    ov.querySelector('#stNo').onclick=()=>done(null);
+    ov.addEventListener('click',e=>{if(e.target===ov)done(null);});
+  });
+}
+
+/* ----- 3. ФАСЛҲО / РЕҶАҲО / ТАҶРИБА / ҲОЛАТ / МАЙДОНҲОИ ДИНАМИКӢ ----- */
+function panelFields(){
+  return `<div class="adm-note">Фасли корӣ, Реҷаи кор, Таҷриба, Ҳолат ва майдонҳои динамикӣ — бемаҳдуд. Фавран дар филтрҳо ва формаи эълон иҷро мешаванд.</div>
+   <div class="adm-row"><input id="nfTitle" placeholder="Майдони динамикӣ-и нав (масалан: «Дастаи варзиш»)" class="grow" onkeydown="if(event.key==='Enter')addCF()"><button class="ib" onclick="addCF()">➕</button></div>
+   ${SCHEMA.fields.map((f,fi)=>`
+   <details style="border:1px solid var(--hair);border-radius:6px;margin:8px 0;padding:6px 10px" ${f.k.startsWith('custom')?'open':''}>
+     <summary style="font-weight:600;cursor:pointer">
+       ${f.k==='season'?'🌞':f.k==='schedule'?'🕐':f.k==='experience'?'💼':f.k==='condition'?'⚪':'🔧'} ${esc(f.t)}
+       <small style="color:var(--muted)">(${f.v.length})</small>
+       ${f.k.startsWith('custom')?`<button class="ib dan" style="margin-left:8px" onclick="event.preventDefault();delCF(${fi})">🗑</button>`:''}
+     </summary>
+     <div class="sw">${f.v.map((v,vi)=>`<span class="fchip">${esc(v)} <button style="color:var(--brand)" onclick="delFV(${fi},${vi})">✕</button></span>`).join('')||'<span class="adm-note">Холист</span>'}</div>
+     <div class="adm-row"><input id="nf_${fi}" placeholder="Арзиши нав..." class="grow" onkeydown="if(event.key==='Enter')addFV(${fi})"><button class="ib" onclick="addFV(${fi})">➕</button></div>
+   </details>`).join('')}`;
+}
+function addCF(){const el=document.getElementById('nfTitle');const v=el.value.trim();if(!v)return;SCHEMA.fields.push({k:'custom_'+Date.now(),t:v,v:[]});saveSchema();renderPanel();applyLive();toast('Майдони динамикӣ илова шуд ✅');}
+function delCF(fi){SCHEMA.fields.splice(fi,1);saveSchema();renderPanel();applyLive();}
+function addFV(fi){const el=document.getElementById('nf_'+fi);const v=el.value.trim();if(!v||SCHEMA.fields[fi].v.includes(v))return;SCHEMA.fields[fi].v.push(v);saveSchema();renderPanel();applyLive();}
+function delFV(fi,vi){SCHEMA.fields[fi].v.splice(vi,1);saveSchema();renderPanel();applyLive();}
+
+/* ----- 4. ИКОНКА / РАНГҲО / НОМ / SLOGAN / BANNERҲО ----- */
+const BRAND_COLORS=['#A62626','#D94141','#1565C0','#1B873F','#6A1B9A','#E65100','#00838F','#37474F'];
+function panelVisual(){
+  const v=SCHEMA.visual;
+  return `
+   <div class="adm-row"><input id="vApp" value="${esc(v.app)}" class="grow" placeholder="Номи барнома">
+     <input id="vSlog" value="${esc(v.slogan)}" class="grow" placeholder="Slogan"><button class="ib" onclick="saveVisualTxt()">💾</button></div>
+   <div class="adm-note">Икон-и барнома: «Девори эълонҳо» (SVG дарунсохт, дар услути расими Owner) — дар логотип ва favicon истифода мешавад.</div>
+   <div class="adm-note">Ранги асосӣ (Brand):</div>
+   <div class="sw">${BRAND_COLORS.map(c=>`<button class="swb ${v.brand===c?'on':''}" style="background:${c}" onclick="setV('brand','${c}')"></button>`).join('')}</div>
+   <div class="adm-note">Ранги аксент (Accent):</div>
+   <div class="sw">${BRAND_COLORS.map(c=>`<button class="swb ${v.accent===c?'on':''}" style="background:${c}" onclick="setV('accent','${c}')"></button>`).join('')}</div>
+   <div class="adm-note">Bannerҳо ва қисмҳои feed (${v.banners.length}) — бемаҳдуд:</div>
+   ${v.banners.map((b,i)=>`<div class="adm-row"><span>${b.ic}</span><span class="grow">${esc(b.t)}${b.s?` <small style="color:var(--muted)">${esc(b.s)}</small>`:''}</span><button class="ib dan" onclick="delB(${i})">🗑</button></div>`).join('')}
+   <div class="adm-row"><input id="bT" placeholder="Номи banner..." class="grow"><input id="bS" placeholder="Зернавис..." class="grow"><button class="ib" onclick="addB()">➕</button></div>`;
+}
+function saveVisualTxt(){
+  SCHEMA.visual.app=document.getElementById('vApp').value.trim()||SCHEMA.visual.app;
+  SCHEMA.visual.slogan=document.getElementById('vSlog').value.trim();
+  saveSchema();applyVisual();renderPanel();toast('Тамошӣ нигоҳ дошта шуд ✅ (баъди Нашр ба ҳама мерасад)');
+}
+function setV(k,val){SCHEMA.visual[k]=val;saveSchema();applyVisual();renderPanel();}
+function addB(){
+  const t=document.getElementById('bT').value.trim();if(!t)return;
+  SCHEMA.visual.banners.push({t,s:document.getElementById('bS').value.trim(),ic:'📣',c:SCHEMA.visual.brand});
+  saveSchema();renderPanel();renderBannerRow();toast('Banner илова шуд ✅');
+}
+function delB(i){SCHEMA.visual.banners.splice(i,1);saveSchema();renderPanel();renderBannerRow();}
+
+/* ----- 5. НАШР ВА АМНИЯТ (OTA Publish + Change Credentials) ----- */
+function panelPublish(){
+  const lp=SCHEMA.lastPub?new Date(SCHEMA.lastPub).toLocaleTimeString('tg'):'—';
+  return `
+   <div class="ota-banner-note">🚀 <b>Instant OTA Publish</b><br>
+     Версияи schema: <b>v${SCHEMA.version}</b> • Охирин нашр: ${lp}<br>
+     Баъди нашр ҳар корбар banner-и «Навсозии нав баромад! • Насб кардан»-ро мебинад — БЕ Play Market.</div>
+   <button class="btn-fill" style="width:100%;padding:12px;font-weight:700;margin:10px 0" onclick="publishSchema()">Нашри тағйирот ба ҳама (Publish)</button>
+   <div class="adm-note" style="margin-top:14px">🔐 <b>Амнияти ҳисоби Админ</b> — мухтасасҳо танҳо ҳамчун SHA-256 + salt захира шудаанд ва ҳеҷ гоҳ намоиш дода намешаванд.</div>
+   <button class="btn-out" style="width:100%;padding:11px;font-weight:600;margin-bottom:8px" onclick="changeCreds()">🔑 Ивази логин ва парол</button>
+   <button class="btn-fill" style="width:100%;padding:11px;font-weight:700" onclick="closeAdminPanel()">Баромадан аз панели админ</button>`;
+}
+function publishSchema(){
+  SCHEMA.version++;SCHEMA.lastPub=Date.now();
+  SCHEMA.applied=Math.max(0,SCHEMA.version-1); // имитатсияи OTA: дастгоҳҳо ҳанӯз насб накардаанд
+  saveSchema();checkOta();renderPanel();
+  toast(`Schema v${SCHEMA.version} нашр шуд 🚀`);
+}
+function changeCreds(){
+  closeOv('ovPanel');
+  document.getElementById('adminBody').innerHTML=`
+   <button class="m-close" onclick="closeOv('ovAdmin');reopenPanel()">✕</button>
+   <div class="m-title">🔑 Ивази логин ва парол</div>
+   <input id="cCur" type="password" placeholder="Пароли ҷорӣ (ҳатман)" autocomplete="current-password" style="margin-bottom:8px">
+   <input id="cLogin" placeholder="Логини нав (≥4)" autocomplete="off" style="margin-bottom:8px">
+   <input id="cPass" type="password" placeholder="Пароли нав (≥8)" autocomplete="new-password" style="margin-bottom:8px">
+   <input id="cPass2" type="password" placeholder="Тасдиқи пароли нав" autocomplete="new-password" style="margin-bottom:10px">
+   <button class="btn-fill" style="width:100%;padding:12px;font-weight:700" onclick="doChangeCreds()">Иваз кардан</button>`;
+  document.getElementById('ovAdmin').classList.add('open');
+}
+function reopenPanel(){document.getElementById('ovPanel').classList.add('open');renderPanel();}
+async function doChangeCreds(){
+  const st=getAdmin();
+  const cur=document.getElementById('cCur').value;
+  if(await hashWithSalt(st.s,cur)!==st.p){toast('Пароли ҷорӣ нодуруст ❌');return;}
+  const nl=document.getElementById('cLogin').value.trim();
+  const np=document.getElementById('cPass').value,np2=document.getElementById('cPass2').value;
+  if(nl.length<4||np.length<8){toast('Логин ≥4 ва парол ≥8 аломат');return;}
+  if(np!==np2){toast('Паролҳо мувофиқ нестанд');return;}
+  const salt=randSalt();
+  localStorage.setItem(ADMIN_KEY,JSON.stringify({
+    s:salt,l:await hashWithSalt(salt,nl.toLowerCase()),p:await hashWithSalt(salt,np)
+  }));
+  ['cCur','cPass','cPass2'].forEach(id=>document.getElementById(id).value='');
+  closeOv('ovAdmin');
+  reopenPanel();
+  toast('Логин ва парол иваз шуд ✅ (salt ва hash-и нав)');
+}
+
+/* ---------- ёрирасон: Dialog-и матн (бе alert/prompt) ---------- */
+function askText(title,initial=''){
+  return new Promise(res=>{
+    const ov=document.createElement('div');ov.className='ov open';ov.style.zIndex='600';
+    ov.innerHTML=`<div class="modal" style="max-width:420px">
+      <div class="m-title">${esc(title)}</div>
+      <input id="askIn" value="${esc(initial)}">
+      <div class="wiz-nav"><button class="btn-out" id="askNo">Бекор</button><button class="btn-fill" id="askOk">OK</button></div></div>`;
+    document.body.appendChild(ov);
+    const done=v=>{ov.remove();res(v);};
+    ov.querySelector('#askOk').onclick=()=>done(ov.querySelector('#askIn').value.trim());
+    ov.querySelector('#askNo').onclick=()=>done(null);
+    ov.addEventListener('click',e=>{if(e.target===ov)done(null);});
+    ov.addEventListener('keydown',e=>{if(e.key==='Enter')done(ov.querySelector('#askIn').value.trim());});
+    setTimeout(()=>ov.querySelector('#askIn').focus(),50);
+  });
+}
+
+/* ---------- CINEMATIC SPLASH: Таркиш ва кушоиш ---------- */
+function enterApp(){
+  const sp=document.getElementById('splash');
+  if(!sp)return;
+  // шардро дар як лаҳза сохтан (14 т игре паридашуда)
+  for(let i=0;i<14;i++){
+    const s=document.createElement('div');
+    s.className='shard';
+    const ang=Math.random()*Math.PI*2,dist=140+Math.random()*280;
+    s.style.setProperty('--dx',Math.cos(ang)*dist+'px');
+    s.style.setProperty('--dy',Math.sin(ang)*dist+'px');
+    s.style.setProperty('--rot',(Math.random()*540-270).toFixed(0)+'deg');
+    s.style.animationDelay=(Math.random()*.12)+'s';
+    sp.appendChild(s);
+  }
+  sp.classList.add('explode');       // scale-up + blur + fade (shards flying)
+  document.body.classList.add('app-zoom'); // spring-zoom-и feed дар зери он
+  setTimeout(()=>{sp.remove();document.body.classList.remove('app-zoom');},850);
+}
+
+/* INIT */
+document.body.dataset.theme=S.theme;
+document.getElementById('themeBtn').textContent=S.theme==='light'?'🌙':'☀️';
+// Splash icon = «Девори эълонҳо» (SVG дарунсохт)
+document.getElementById('splashIcon').innerHTML=DOODLE_ICON;
+
+/* Splash: 12 варақи эълони коғазӣ дар гирди марказ (pointer-events:none — бе халал ба тугма) */
+(()=>{
+  const words=['Мефурӯшам','Иҷора','Усто','Гумшуда','Хизматрасонӣ','Таъмир','Ройгон','Мехарам','Ошпаз','Мебел','Асбобҳо','Китобҳо'];
+  const colors=['#FDE047','#F9FAFB','#60A5FA','#4ADE80','#FB7185','#FDBA74','#A7F3D0','#FDE047','#93C5FD','#F9A8D4','#FCD34D','#BBF7D0'];
+  const pos=[[6,10],[24,6],[42,4],[62,6],[82,12],[88,34],[4,36],[88,58],[6,62],[82,76],[18,80],[64,84]];
+  const rots=[-14,10,-6,12,-10,8,-12,6,-8,14,-5,9];
+  const sp=document.getElementById('splash');
+  if(!sp)return;
+  for(let i=0;i<12;i++){
+    const p=document.createElement('div');
+    p.className='paper';
+    p.style.left=pos[i][0]+'%';
+    p.style.top=pos[i][1]+'%';
+    p.style.background=colors[i];
+    p.style.setProperty('--rot',rots[i]+'deg');
+    p.style.setProperty('--dur',(5+Math.random()*3).toFixed(1)+'s');
+    p.style.animationDelay=(-Math.random()*4).toFixed(1)+'s';
+    const num='+992 '+(90+Math.floor(Math.random()*9))+' '+String(100+Math.floor(Math.random()*899));
+    p.innerHTML=`<div class="pw">${words[i]}</div><div class="pl"></div><div class="pl s"></div><div class="pnum">${num}</div>`;
+    sp.appendChild(p);
+  }
+})();
+// Favicon = «Девори эълонҳо» (SVG дарунсохт)
+(()=>{const fav=document.createElement('link');fav.rel='icon';fav.type='image/svg+xml';
+fav.href='data:image/svg+xml,'+encodeURIComponent(DOODLE_ICON);document.head.appendChild(fav);})();
+applyVisual();
+document.getElementById('cityLbl').textContent=S.city;
+renderAll();updBadge();checkOta();
+
+/* Supabase: боркунии эълонҳо аз сервер — танҳо агар ҷадval listings пур бошад */
+if(SUPABASE.URL&&SUPABASE.KEY){
+  sbFetchListings().then(remote=>{
+    if(Array.isArray(remote)&&remote.length){
+      S.ads=remote;
+      renderAll();
+    }
+  });
+  // Real-time чат: polling-и сабук ҳар 2 сония (нов-паёмҳо фавран дар экран)
+  setInterval(pollChats,2000);
+}
+</script>
+</body>
+</html>
