@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Девор — Бозори ройгони эълонҳои Тоҷикистон</title>
+<titleЮ>Девор — Бозори ройгони эълонҳои Тоҷикистон</titleЮ
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -246,6 +246,63 @@ body.app-zoom .layout,body.app-zoom header{animation:appIn .8s cubic-bezier(.22,
 .mob-tabs button{flex:1;padding:9px 0;font-size:10.5px;color:var(--text2);display:flex;flex-direction:column;align-items:center;gap:2px}
 .mob-tabs button.on{color:var(--brand)}
 .mob-tabs button svg{width:20px;height:20px}
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .layout,
+  .main-layout,
+  .container,
+  .wrapper,
+  .sidebar,
+  .aside,
+  .filters-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-direction: column !important;
+    box-sizing: border-box;
+  }
+
+  .ads-grid,
+  .listings-grid,
+  .cards-grid,
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  body {
+    padding-bottom: 76px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .ads-grid,
+  .listings-grid,
+  .cards-grid,
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
 </head>
 <body data-theme="light">
@@ -276,7 +333,7 @@ body.app-zoom .layout,body.app-zoom header{animation:appIn .8s cubic-bezier(.22,
     </div>
     <div class="hdr-right">
       <button class="hbtn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-      <button class="hbtn" onclick="openSaved()">👤 <span>Девори ман</span></button>
+      <button class="hbtn" onclick="openSaved()">👤 <span>Утоқи ман</span></button>
       <button class="hbtn" onclick="openChat()">💬 <span>Чат</span><span class="badge" id="chatBadge" style="display:none">0</span></button>
       <button class="hbtn" onclick="openSupport()">❔ <span>Дастгирӣ</span></button>
       <button class="post-btn" onclick="openPost()">+ Сабти эълон</button>
@@ -322,16 +379,13 @@ body.app-zoom .layout,body.app-zoom header{animation:appIn .8s cubic-bezier(.22,
   <p>Developer: Haydarzoda</p>
   <p class="sub">All rights reserved. • Ҳамаи ҳуқуқҳо ҳифз шудаанд</p>
 </footer>
-
-<button class="map-btn" id="mapToggle" onclick="toggleMap()">🗺️ Харита</button>
-
 <!-- Mobile bottom tabs -->
 <nav class="mob-tabs">
   <button id="mt0" class="on" onclick="mobileTab(0)">🏠<span>Эълонҳо</span></button>
   <button id="mt1" onclick="toggleAside()">▦<span>Бандҳо</span></button>
   <button id="mt2" style="color:var(--brand)" onclick="openPost()">➕<span>Сабти эълон</span></button>
   <button id="mt3" onclick="openChat()">💬<span>Чат</span></button>
-  <button id="mt4" onclick="openSaved()">👤<span>Девори ман</span></button>
+  <button id="mt4" onclick="openSaved()">👤<span>Утоқи ман</span></button>
 </nav>
 
 <!-- ==================== MODALS ==================== -->
@@ -639,7 +693,7 @@ function detailSwap(el,src){
   document.querySelectorAll('#ovDetail .gal .g').forEach(g=>g.classList.remove('sel'));
   el.classList.add('sel');
 }
-function reportAd(id){toast('Гузориш сабт шуд — ташкилотчӣ санҷиш мекунад 🚩');}
+function reportAd(id){toast('Гузориш сабт шуд — админ санҷиш мекунад 🚩');}
 
 /* ---------- ИКОН-И БАРНОМА: «Девори эълонҳо» (дар услути расими Owner) ---------- */
 const DOODLE_ICON=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -683,13 +737,13 @@ const SUPABASE = {
   KEY: "sb_publishable_jPrCcmwVt4emID6NSY2KMQ_KD3RtcVS"
 };
 
-/* Тозакунии эълон: DELETE /rest/v1/listings?id=eq.{id} */
+/* Тозакунии эълон: DELETE /rest/v1/ads?id=eq.{id} */
 async function sbDeleteListing(id) {
   if (!SUPABASE.URL || !SUPABASE.KEY || !id) {
     return false;
   }
   try {
-    const endpoint = `${SUPABASE.URL}/rest/v1/listings?id=eq.${encodeURIComponent(id)}`;
+    const endpoint = `${SUPABASE.URL}/rest/v1/ads?id=eq.${encodeURIComponent(id)}`;
     const response = await fetch(endpoint, {
       method: "DELETE",
       headers: {
@@ -710,12 +764,12 @@ async function sbDeleteListing(id) {
   }
 }
 
-/* Боркунии эълонҳо: GET /rest/v1/listings?select=* */
+/* Боркунии эълонҳо: GET /rest/v1/ads?select=* */
 async function sbFetchListings() {
   if (!SUPABASE.URL || !SUPABASE.KEY) {
     return [];
   }
-  const base = `${SUPABASE.URL}/rest/v1/listings`;
+  const base = `${SUPABASE.URL}/rest/v1/ads`;
   const headers = {
     "apikey": SUPABASE.KEY,
     "Authorization": `Bearer ${SUPABASE.KEY}`
@@ -758,7 +812,7 @@ async function sbFetchListings() {
   }
 }
 
-/* Нашри эълон: POST /rest/v1/listings (merge-duplicates = upsert) */
+/* Нашри эълон: POST /rest/v1/ads (merge-duplicates = upsert) */
 async function sbUpsertListing(ad) {
   if (!SUPABASE.URL || !SUPABASE.KEY || !ad) {
     return false;
@@ -781,7 +835,7 @@ async function sbUpsertListing(ad) {
       seller_name: ad.seller,
       created_at: new Date().toISOString()
     };
-    const response = await fetch(`${SUPABASE.URL}/rest/v1/listings`, {
+    const response = await fetch(`${SUPABASE.URL}/rest/v1/ads`, {
       method: "POST",
       headers: {
         "apikey": SUPABASE.KEY,
@@ -885,7 +939,7 @@ function renderPost(){
      <label style="font-size:12.5px;color:var(--text2)">Рақами телефон (PII — дар UI маскал мешавад: ${maskPhone(pw.ph||'+9920000000')})</label>
      <input id="pPhone" type="tel" placeholder="+992 XX XXX XX XX" autocomplete="off" value="${pw.ph?esc(pw.ph):''}" style="margin:8px 0">
      <div class="priv-note">🛡️ <b>Ҳушдорҳои амниятӣ:</b> рақами телефон дар карточка ҳамчун ${maskPhone(pw.ph||'+9920000000')} нишон дода мешавад; OTP баъди тасдиқ 3 дақиқа пурра нест мешавад; маълумоти шахсӣ дар логҳо маскал мешаванд.</div>
-     <div class="free-note">✅ Нашри эълон 100% РОЙГОН аст — бе VIP, бе ТОР, бе пардохт.</div>
+     <div class="free-note">✅ Нашри эълон РОЙГОН .</div>
      <div class="wiz-nav"><button class="btn-out" onclick="pw.step--;renderPost()">Бозгашт</button><button class="btn-fill" onclick="publish()" ${(pw.photos||[]).length>=2?'':'disabled style="opacity:.45"'}>Нашр кардан — Ройгон</button></div>`;
   }
 }
